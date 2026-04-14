@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables (סודות — אל תעלה לעולם!)
+.env
+.env.local
+.env.production
+**/.env
+**/.env.local
+
+# Build output
+dist/
+**/dist/
+build/
+
+# Database (local only)
+*.db
+*.sqlite
+flowtest.db
+
+# Playwright temp test files
+backend/src/__runs__/
+
+# Playwright browsers (heavy — no need to upload)
+**/playwright/.local-browsers/
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Temp
+tmp/
+.tmp/

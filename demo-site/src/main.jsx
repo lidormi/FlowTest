@@ -1,0 +1,7 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import './styles/animations.css';
+import './tracker.js'; // FlowTest analytics tracking
+
+createRoot(document.getElementById('root')).render(<App />);

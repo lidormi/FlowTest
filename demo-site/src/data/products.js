@@ -1,0 +1,18 @@
+export const PRODUCTS = [
+  { id:'headphones',  slug:'headphones',  name:'Pro Wireless Headphones',  category:'Audio',       price:7900,  rating:4.8, reviews:312, badge:'Bestseller', image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80', description:'Premium noise-cancelling over-ear headphones with 40h battery life and studio-quality sound.', features:['Active Noise Cancellation','40h battery','Bluetooth 5.3','Foldable design','USB-C charging'] },
+  { id:'keyboard',    slug:'keyboard',    name:'Mechanical Keyboard TKL',  category:'Peripherals', price:14900, rating:4.7, reviews:198, badge:'Popular',    image:'https://images.unsplash.com/photo-1561112078-7d24e04c3407?w=400&q=80', description:'Tenkeyless mechanical keyboard with Cherry MX switches and per-key RGB lighting.', features:['Cherry MX Brown switches','Per-key RGB','Aluminum frame','PBT keycaps','N-Key rollover'] },
+  { id:'mouse',       slug:'mouse',       name:'Ergonomic Wireless Mouse',  category:'Peripherals', price:4900,  rating:4.6, reviews:524, badge:null,        image:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&q=80', description:'Ergonomic vertical mouse designed to reduce wrist strain during long sessions.', features:['Vertical ergonomic design','2.4GHz wireless','6 programmable buttons','90-day battery','DPI 800–3200'] },
+  { id:'hub',         slug:'hub',         name:'USB-C Hub 12-in-1',        category:'Accessories', price:3900,  rating:4.5, reviews:881, badge:'New',        image:'https://images.unsplash.com/photo-1625842268584-8f3296236761?w=400&q=80', description:'12-in-1 USB-C hub with 4K HDMI, SD card reader, and 100W PD pass-through.', features:['4K HDMI @ 60Hz','100W Power Delivery','4× USB-A 3.0','SD & microSD reader','Gigabit Ethernet'] },
+  { id:'stand',       slug:'stand',       name:'Monitor Arm Dual',         category:'Accessories', price:8900,  rating:4.9, reviews:156, badge:null,        image:'https://images.unsplash.com/photo-1586227740560-8cf2732c1531?w=400&q=80', description:'Fully adjustable dual monitor arm with VESA 75/100 compatibility and cable management.', features:['Dual monitor support','±90° rotation','360° swivel','VESA 75/100','Max 9kg per arm'] },
+  { id:'webcam',      slug:'webcam',      name:'4K Streaming Webcam',      category:'Audio',       price:8900,  rating:4.4, reviews:267, badge:'Hot',        image:'https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=400&q=80', description:'4K 30fps webcam with built-in ring light, background blur, and auto-framing.', features:['4K 30fps / 1080p 60fps','Built-in ring light','Auto-framing AI','Background blur','Plug-and-play USB-C'] },
+  { id:'lamp',        slug:'lamp',        name:'LED Desk Lamp Pro',        category:'Accessories', price:3500,  rating:4.3, reviews:423, badge:null,        image:'https://images.unsplash.com/photo-1524275539700-cf51138f679b?w=400&q=80', description:'Architect-style LED desk lamp with wireless charging pad and USB-A port.', features:['5 colour temps','10 brightness levels','Wireless Qi charging','USB-A charging port','Memory function'] },
+  { id:'laptop-stand',slug:'laptop-stand',name:'Portable Laptop Stand',   category:'Accessories', price:4500,  rating:4.6, reviews:612, badge:null,        image:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80', description:'Ultra-thin foldable aluminium laptop stand with 6 height levels.', features:['6 adjustable heights','Aluminium alloy','Folds flat','Universal fit 11"–17"','Under 350g'] },
+];
+
+export function getProduct(slug) {
+  return PRODUCTS.find(p => p.slug === slug);
+}
+
+export function fmt(cents) {
+  return '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');
+}
