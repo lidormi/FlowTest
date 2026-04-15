@@ -52,7 +52,8 @@
       "Bash(curl -s http://localhost:3001/api/tests/test_004)",
       "Bash(curl -s http://localhost:3001/api/tests/test_003)",
       "Bash(curl -s -X POST http://localhost:3001/api/tests/test_004/run)",
-      "Bash(curl -s -X POST http://localhost:3001/api/tests/test_003/run)"
+      "Bash(curl -s -X POST http://localhost:3001/api/tests/test_003/run)",
+      "Bash(curl -s https://flowtest-production.up.railway.app/api/health)"
     ]
   }
 }
