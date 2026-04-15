@@ -1,5 +1,5 @@
 // FlowTest Tracker — embedded in ShopFlow demo site
-const API       = 'http://localhost:3001';
+const API       = import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app';
 const API_KEY   = 'ft_live_xk9m2p4r8s1t7u3v6w0demo';
 const BATCH_MS  = 4000;
 

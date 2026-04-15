@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { navigate, useCart } from '../App.jsx';
 import { fmt } from '../data/products.js';
 
-const API = 'http://localhost:3001/api';
+const API = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
 
 function luhn(num) {
   const d = num.replace(/\D/g,'');

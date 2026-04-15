@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 
+const API = (import.meta.env.VITE_API_URL || '') + '/api';
+
 export default function Scheduler() {
   const { data, loading, refetch } = useApi('/schedules');
   const [form, setForm] = useState({ testId: '', cronExpr: '' });
@@ -16,7 +18,7 @@ export default function Scheduler() {
     if (!form.testId || !form.cronExpr) return;
     setSaving(true); setMsg('');
     try {
-      const res = await fetch('/api/schedules', {
+      const res = await fetch(`${API}/schedules`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -31,7 +33,7 @@ export default function Scheduler() {
   }
 
   async function handleDelete(testId) {
-    await fetch(`/api/schedules/${testId}`, { method: 'DELETE' });
+    await fetch(`${API}/schedules/${testId}`, { method: 'DELETE' });
     refetch();
   }
 

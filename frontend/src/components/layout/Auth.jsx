@@ -7,9 +7,20 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('ft_token');
+    // Support ?token= URL param for cross-app redirect login (e.g. from demo-site admin button)
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get('token');
+    if (urlToken) {
+      // Remove the token param from the URL immediately (avoid it being bookmarked)
+      const clean = window.location.pathname;
+      history.replaceState({}, '', clean);
+      localStorage.setItem('ft_token', urlToken);
+    }
+
+    const token = urlToken || localStorage.getItem('ft_token');
     if (token) {
-      fetch('/api/auth/me', { headers: { Authorization: `Bearer ${token}` } })
+      const base = (import.meta.env.VITE_API_URL || '') + '/api';
+      fetch(`${base}/auth/me`, { headers: { Authorization: `Bearer ${token}` } })
         .then(r => r.ok ? r.json() : null)
         .then(data => { if (data?.user) setUser(data.user); })
         .catch(() => {})
@@ -45,6 +56,8 @@ const BRAND = {
   sub: 'Record real sessions → auto-generate Playwright tests → get AI-powered drop-off insights. Catch bugs before your users do.',
   features: ['🎥 Screen recording', '🧪 Auto-generate tests', '🧠 AI insights', '🚨 Live alerts'],
 };
+
+const API = (import.meta.env.VITE_API_URL || '') + '/api';
 
 export function LoginPage({ onLogin }) {
   const [mode, setMode] = useState('login');
@@ -122,7 +135,7 @@ export function LoginPage({ onLogin }) {
     e.preventDefault();
     setError(''); setLoading(true);
     try {
-      const endpoint = mode === 'login' ? '/api/auth/login' : '/api/auth/register';
+      const endpoint = mode === 'login' ? `${API}/auth/login` : `${API}/auth/register`;
       const body = mode === 'login'
         ? { email: form.email, password: form.password }
         : { email: form.email, password: form.password, name: form.name };
@@ -138,7 +151,7 @@ export function LoginPage({ onLogin }) {
   async function handleDemo() {
     setLoading(true); setError('');
     try {
-      const res = await fetch('/api/auth/demo', { method: 'POST' });
+      const res = await fetch(`${API}/auth/demo`, { method: 'POST' });
       const data = await res.json();
       if (!res.ok) { setError(data.error); return; }
       onLogin(data.token, data.user);

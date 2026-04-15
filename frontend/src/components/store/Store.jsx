@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const API = 'http://localhost:3001/api';
+const API = (import.meta.env.VITE_API_URL || 'http://localhost:3001') + '/api';
 
 function fmt(cents) {
   return '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');

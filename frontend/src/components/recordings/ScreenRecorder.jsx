@@ -175,7 +175,7 @@ export default function ScreenRecorder({ onRecordingComplete }) {
 
     try {
       const events = rec.domEvents || [];
-      const res = await fetch('http://localhost:3001/api/ai/generate-test', {
+      const res = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:3001') + '/api/ai/generate-test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

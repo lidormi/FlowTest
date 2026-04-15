@@ -77,8 +77,8 @@ export default function App() {
     <CartContext.Provider value={{ cartItems, addToCart, updateQty, clearCart, cartCount, cartTotal }}>
       <AuthCtx.Provider value={{ user, shopLogin, shopLogout }}>
         <div style={{ minHeight: '100vh', background: '#f8f9ff', fontFamily: "'Inter', system-ui, sans-serif", color: '#111' }}>
-          <Navbar cartCount={cartCount} user={user} onLogout={shopLogout} />
-          <main style={{ paddingTop: route.page === 'home' ? 0 : 64 }}>
+          {route.page !== 'auth' && <Navbar cartCount={cartCount} user={user} onLogout={shopLogout} />}
+          <main style={{ paddingTop: route.page === 'home' || route.page === 'auth' ? 0 : 64 }}>
             {route.page === 'home'     && <Home />}
             {route.page === 'products' && <Products />}
             {route.page === 'product'  && <ProductDetail slug={route.slug} />}

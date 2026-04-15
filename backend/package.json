@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file=.env src/index.js",
-    "start": "node --env-file=.env src/index.js",
-    "seed": "node --env-file=.env scripts/seed.js"
+    "dev": "node --watch --env-file=../.env src/index.js",
+    "start": "node src/index.js",
+    "seed": "node --env-file=../.env scripts/seed.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",

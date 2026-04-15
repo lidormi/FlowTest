@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 const API_KEY = 'ft_live_xk9m2p4r8s1t7u3v6w0demo';
-const SCRIPT_TAG = `<script src="https://cdn.flowtest.io/tracker.js"\n  data-key="${API_KEY}"\n  data-url="http://localhost:3001">\n</script>`;
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const SCRIPT_TAG = `<script src="https://cdn.flowtest.io/tracker.js"\n  data-key="${API_KEY}"\n  data-url="${BACKEND_URL}">\n</script>`;
 
 export default function Settings() {
   const [copied, setCopied] = useState('');
