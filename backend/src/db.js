@@ -14,7 +14,7 @@ const pool = process.env.DATABASE_URL ? new Pool({
   connectionTimeoutMillis: 10000,
 }) : null;
 
-pool.on('error', (err) => console.error('DB pool error:', err.message));
+if (pool) pool.on('error', (err) => console.error('DB pool error:', err.message));
 
 // Convert SQLite ? placeholders to PostgreSQL $1, $2, ...
 function toParams(sql) {
