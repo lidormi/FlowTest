@@ -23,6 +23,11 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json({ limit: '2mb' }));
 
+// Health check — registered before initDb so Railway can always reach it
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', time: new Date().toISOString(), version: '1.1.0' });
+});
+
 await initDb();
 console.log('✅ Database ready');
 
@@ -39,10 +44,6 @@ app.use('/api/schedules', schedulesRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/ai', aiRoutes);
-
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', time: new Date().toISOString(), version: '1.1.0' });
-});
 
 app.get('/tracker.js', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
