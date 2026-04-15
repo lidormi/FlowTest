@@ -28,7 +28,14 @@ process.on('unhandledRejection', (reason) => {
   console.error('💥 Unhandled Rejection:', reason);
 });
 
-app.use(cors({ origin: '*' }));
+const corsOptions = {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'],
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json({ limit: '2mb' }));
 
 // ── Health check — always available, registered before DB init ────────────────
