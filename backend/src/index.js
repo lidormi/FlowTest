@@ -20,6 +20,14 @@ import aiRoutes from './routes/ai.js';
 const app = express();
 const port = process.env.PORT || 3001;
 
+process.on('uncaughtException', (err) => {
+  console.error('💥 Uncaught Exception:', err.message, err.stack);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('💥 Unhandled Rejection:', reason);
+});
+
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '2mb' }));
 
