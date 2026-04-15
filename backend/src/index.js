@@ -20,66 +20,75 @@ import aiRoutes from './routes/ai.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: '*', credentials: true }));
+app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '2mb' }));
 
-// Health check — registered before initDb so Railway can always reach it
+// ── Health check — always available, registered before DB init ────────────────
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString(), version: '1.1.0' });
 });
 
-await initDb();
-console.log('✅ Database ready');
-
-loadSchedules();
-
-app.use('/api/auth', authRoutes);
-app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/sessions', sessionsRoutes);
-app.use('/api/tests', testsRoutes);
-app.use('/api/insights', insightsRoutes);
-app.use('/api/track', trackRoutes);
-app.use('/api/export', exportRoutes);
-app.use('/api/schedules', schedulesRoutes);
-app.use('/api/analytics', analyticsRoutes);
-app.use('/api/products', productsRoutes);
-app.use('/api/ai', aiRoutes);
-
+// ── Static tracker script ─────────────────────────────────────────────────────
 app.get('/tracker.js', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
   res.sendFile(new URL('../scripts/tracker.js', import.meta.url).pathname);
 });
 
+// ── Start server immediately so Railway sees a live process ───────────────────
 const server = createServer(app);
 initWebSocket(server);
-
-// Live demo events every 8s
-let liveCounter = 4821;
-const DEMO_PAGES = ['/checkout','/login','/signup','/dashboard','/pricing','/'];
-const DEMO_COUNTRIES = ['IL','US','UK','DE','FR','CA','AU'];
-setInterval(() => {
-  liveCounter++;
-  broadcast('new_session', {
-    id: `sess_live_${liveCounter}`,
-    page: DEMO_PAGES[Math.floor(Math.random() * DEMO_PAGES.length)],
-    country: DEMO_COUNTRIES[Math.floor(Math.random() * DEMO_COUNTRIES.length)],
-    status: Math.random() > 0.3 ? 'completed' : 'dropped',
-    time: Date.now()
-  });
-}, 8000);
-
-setInterval(() => {
-  if (Math.random() > 0.65) {
-    broadcast('alert', {
-      title: 'Drop rate spike on /checkout',
-      severity: 'high',
-      description: 'Above threshold in last 5 minutes'
-    });
-  }
-}, 35000);
 
 server.listen(PORT, () => {
   console.log(`🚀 FlowTest API  → http://localhost:${PORT}`);
   console.log(`🔌 WebSocket     → ws://localhost:${PORT}`);
-  console.log(`📅 Scheduler     → ready`);
 });
+
+// ── Initialize DB and register routes asynchronously ─────────────────────────
+try {
+  await initDb();
+  console.log('✅ Database ready');
+
+  app.use('/api/auth',      authRoutes);
+  app.use('/api/dashboard', dashboardRoutes);
+  app.use('/api/sessions',  sessionsRoutes);
+  app.use('/api/tests',     testsRoutes);
+  app.use('/api/insights',  insightsRoutes);
+  app.use('/api/track',     trackRoutes);
+  app.use('/api/export',    exportRoutes);
+  app.use('/api/schedules', schedulesRoutes);
+  app.use('/api/analytics', analyticsRoutes);
+  app.use('/api/products',  productsRoutes);
+  app.use('/api/ai',        aiRoutes);
+
+  loadSchedules();
+  console.log('📅 Scheduler     → ready');
+
+  // Live demo WebSocket events
+  let liveCounter = 4821;
+  const DEMO_PAGES    = ['/checkout','/login','/signup','/dashboard','/pricing','/'];
+  const DEMO_COUNTRIES = ['IL','US','UK','DE','FR','CA','AU'];
+  setInterval(() => {
+    liveCounter++;
+    broadcast('new_session', {
+      id:      `sess_live_${liveCounter}`,
+      page:    DEMO_PAGES[Math.floor(Math.random() * DEMO_PAGES.length)],
+      country: DEMO_COUNTRIES[Math.floor(Math.random() * DEMO_COUNTRIES.length)],
+      status:  Math.random() > 0.3 ? 'completed' : 'dropped',
+      time:    Date.now()
+    });
+  }, 8000);
+
+  setInterval(() => {
+    if (Math.random() > 0.65) {
+      broadcast('alert', {
+        title:       'Drop rate spike on /checkout',
+        severity:    'high',
+        description: 'Above threshold in last 5 minutes'
+      });
+    }
+  }, 35000);
+
+} catch (e) {
+  console.error('❌ Database init failed:', e.message);
+  console.error('   API routes are unavailable. Check DATABASE_URL in Railway Variables.');
+}
