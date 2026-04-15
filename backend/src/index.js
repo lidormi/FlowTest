@@ -18,7 +18,7 @@ import productsRoutes from './routes/products.js';
 import aiRoutes from './routes/ai.js';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '2mb' }));
@@ -38,9 +38,9 @@ app.get('/tracker.js', (req, res) => {
 const server = createServer(app);
 initWebSocket(server);
 
-server.listen(PORT, () => {
-  console.log(`🚀 FlowTest API  → http://localhost:${PORT}`);
-  console.log(`🔌 WebSocket     → ws://localhost:${PORT}`);
+server.listen(port, '0.0.0.0', () => {
+  console.log(`🚀 FlowTest API  → http://localhost:${port}`);
+  console.log(`🔌 WebSocket     → ws://localhost:${port}`);
 });
 
 // ── Initialize DB and register routes asynchronously ─────────────────────────
