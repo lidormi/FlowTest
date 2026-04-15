@@ -3,16 +3,16 @@ import pg from 'pg';
 const { Pool } = pg;
 
 if (!process.env.DATABASE_URL) {
-  console.error('❌ DATABASE_URL is not set. Create backend/.env with your Supabase connection string.');
-  process.exit(1);
+  console.error('❌ DATABASE_URL is not set — add it in Railway Variables.');
 }
 
-const pool = new Pool({
+const pool = process.env.DATABASE_URL ? new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
   max: 10,
   idleTimeoutMillis: 30000,
-});
+  connectionTimeoutMillis: 10000,
+}) : null;
 
 pool.on('error', (err) => console.error('DB pool error:', err.message));
 
@@ -23,12 +23,14 @@ function toParams(sql) {
 }
 
 export async function initDb() {
+  if (!pool) throw new Error('DATABASE_URL not set');
   await createSchema();
   await seedDemoUser();
   return pool;
 }
 
 export async function query(sql, params = []) {
+  if (!pool) throw new Error('DATABASE_URL not set');
   const { rows } = await pool.query(toParams(sql), params);
   return rows;
 }
