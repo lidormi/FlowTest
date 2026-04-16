@@ -106,3 +106,8 @@ try {
   console.error('❌ Database init failed:', e.message);
   console.error('   API routes are unavailable. Check DATABASE_URL in Railway Variables.');
 }
+
+// Keepalive heartbeat — confirms server is still alive every 20s
+setInterval(() => {
+  console.log('💓 alive | uptime:', Math.floor(process.uptime()), 's | mem:', Math.round(process.memoryUsage().rss / 1024 / 1024), 'MB');
+}, 20000);
