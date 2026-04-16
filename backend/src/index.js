@@ -39,7 +39,7 @@ app.use(express.json({ limit: '2mb' }));
 
 // ── Health check — always available, registered before DB init ────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', time: new Date().toISOString(), version: '1.1.0' });
+  res.json({ status: 'ok', time: new Date().toISOString(), version: '1.2.0' });
 });
 
 // ── Static tracker script ─────────────────────────────────────────────────────
