@@ -52,7 +52,7 @@ app.get('/tracker.js', (req, res) => {
 const server = createServer(app);
 initWebSocket(server);
 
-server.listen(port, () => {
+server.listen(port, '::', () => {
   console.log(`🚀 FlowTest API  → http://localhost:${port}`);
   console.log(`🔌 WebSocket     → ws://localhost:${port}`);
 });
