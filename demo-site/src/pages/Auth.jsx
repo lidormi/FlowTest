@@ -23,7 +23,7 @@ export default function Auth({ mode = 'login' }) {
       if (!res.ok) { setErr(data.error || 'Something went wrong'); return; }
       shopLogin(data.user);
       navigate('/');
-    } catch { setErr('Cannot connect — is the backend running on port 3001?'); }
+    } catch { setErr('Cannot connect to backend. Check your network or try again.'); }
     finally  { setLoading(false); }
   }
 

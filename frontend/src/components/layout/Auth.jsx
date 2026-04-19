@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
 
     const token = urlToken || localStorage.getItem('ft_token');
     if (token) {
-      const base = (import.meta.env.VITE_API_URL || '') + '/api';
+      const base = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
       fetch(`${base}/auth/me`, { headers: { Authorization: `Bearer ${token}` } })
         .then(r => r.ok ? r.json() : null)
         .then(data => { if (data?.user) setUser(data.user); })
@@ -57,7 +57,7 @@ const BRAND = {
   features: ['🎥 Screen recording', '🧪 Auto-generate tests', '🧠 AI insights', '🚨 Live alerts'],
 };
 
-const API = (import.meta.env.VITE_API_URL || '') + '/api';
+const API = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
 
 export function LoginPage({ onLogin }) {
   const [mode, setMode] = useState('login');
@@ -144,7 +144,7 @@ export function LoginPage({ onLogin }) {
       if (!res.ok) { setError(data.error || 'Something went wrong'); return; }
       onLogin(data.token, data.user);
     } catch {
-      setError('Cannot connect — is the backend running on port 3001?');
+      setError('Cannot connect to backend. Check your network or try again.');
     } finally { setLoading(false); }
   }
 

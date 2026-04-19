@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 
-const API = (import.meta.env.VITE_API_URL || '') + '/api';
+const API = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
 
 export default function Scheduler() {
   const { data, loading, refetch } = useApi('/schedules');

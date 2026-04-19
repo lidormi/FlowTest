@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const BASE = (import.meta.env.VITE_API_URL || '') + '/api';
+const BASE = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
 
 async function apiFetch(path, opts = {}) {
   const res = await fetch(BASE + path, {
