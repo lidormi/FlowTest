@@ -14,7 +14,15 @@ export default function Navbar({ cartCount, user, onLogout }) {
   const [adminForm, setAdminForm] = useState({ email: '', password: '' });
   const [adminErr, setAdminErr]   = useState('');
   const [adminLoading, setAdminLoading] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile]   = useState(window.innerWidth < 768);
   const searchRef = useRef(null);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
   const isHome = window.location.hash === '#/' || window.location.hash === '#' || window.location.hash === '' || window.location.pathname === '/';
 
   useEffect(() => {
@@ -58,7 +66,7 @@ export default function Navbar({ cartCount, user, onLogout }) {
       const dest = DASHBOARD_URL
         ? `${DASHBOARD_URL}?token=${encodeURIComponent(data.token)}`
         : null;
-      if (dest) { window.open(dest, '_blank'); setAdminOpen(false); }
+      if (dest) { window.location.href = dest; setAdminOpen(false); }
       else { setAdminErr('Dashboard URL not configured — set VITE_DASHBOARD_URL in .env'); }
     } catch { setAdminErr('Cannot connect to backend.'); }
     finally   { setAdminLoading(false); }
@@ -75,17 +83,17 @@ export default function Navbar({ cartCount, user, onLogout }) {
       transition:'background 0.35s,box-shadow 0.35s',
     }}>
       {/* Main bar */}
-      <div style={{ display:'flex',alignItems:'center',padding:'0 28px',height:64,gap:16 }}>
+      <div style={{ display:'flex',alignItems:'center',padding:'0 18px',height:64,gap:12 }}>
 
         {/* Logo */}
-        <button onClick={()=>navigate('/')}
+        <button onClick={()=>{ navigate('/'); setMobileMenuOpen(false); }}
           style={{ background:'none',border:'none',display:'flex',alignItems:'center',gap:10,cursor:'pointer',fontFamily:'inherit',padding:0,flexShrink:0 }}>
           <div style={{ width:34,height:34,borderRadius:10,background:'linear-gradient(135deg,#6366f1,#8b5cf6)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:900,fontSize:13,boxShadow:light?'0 2px 10px rgba(99,102,241,0.35)':'none',transition:'box-shadow 0.3s' }}>SF</div>
           <span style={{ fontSize:19,fontWeight:900,letterSpacing:'-0.5px',color:light?'#0c0c1d':'#fff',transition:'color 0.3s' }}>ShopFlow</span>
         </button>
 
-        {/* Nav links */}
-        <div style={{ display:'flex',gap:2 }}>
+        {/* Nav links — desktop only */}
+        {!isMobile && <div style={{ display:'flex',gap:2 }}>
           {[['/', 'Home'], ['/products', 'Products']].map(([path, label]) => (
             <button key={path} onClick={()=>navigate(path)}
               style={{ background:'none',border:'none',padding:'7px 13px',borderRadius:9,fontSize:14,fontWeight:600,color:textColor,cursor:'pointer',fontFamily:'inherit',transition:'all 0.2s' }}
@@ -94,10 +102,10 @@ export default function Navbar({ cartCount, user, onLogout }) {
               {label}
             </button>
           ))}
-        </div>
+        </div>}
 
-        {/* Search bar (desktop) */}
-        <div ref={searchRef} style={{ flex:1,maxWidth:400,position:'relative' }}>
+        {/* Search bar — desktop only */}
+        {!isMobile && <div ref={searchRef} style={{ flex:1,maxWidth:400,position:'relative' }}>
           <form onSubmit={handleSearch} style={{ display:'flex',borderRadius:10,overflow:'hidden',border:`1px solid ${light?'#e5e7eb':'rgba(255,255,255,0.18)'}`,background:light?'#f9fafb':'rgba(255,255,255,0.1)',transition:'all 0.2s',boxShadow:searchOpen?'0 0 0 3px rgba(99,102,241,0.15)':'none' }}>
             <input
               value={search}
@@ -112,8 +120,6 @@ export default function Navbar({ cartCount, user, onLogout }) {
               🔍
             </button>
           </form>
-
-          {/* Search dropdown hint */}
           {searchOpen && search.length === 0 && (
             <div style={{ position:'absolute',top:'calc(100% + 8px)',left:0,right:0,background:'#fff',borderRadius:12,boxShadow:'0 8px 32px rgba(0,0,0,0.12)',border:'1px solid #e8eaf0',overflow:'hidden',zIndex:100 }}>
               <div style={{ padding:'10px 14px 6px',fontSize:11,fontWeight:700,color:'#9ca3af',textTransform:'uppercase',letterSpacing:'1px' }}>Popular searches</div>
@@ -127,11 +133,13 @@ export default function Navbar({ cartCount, user, onLogout }) {
               ))}
             </div>
           )}
-        </div>
+        </div>}
 
-        {/* Right side */}
-        <div style={{ display:'flex',alignItems:'center',gap:10 }}>
+        {/* Spacer on mobile */}
+        {isMobile && <div style={{ flex:1 }} />}
 
+        {/* Right side — desktop */}
+        {!isMobile && <div style={{ display:'flex',alignItems:'center',gap:10 }}>
           {/* Cart */}
           <button onClick={()=>navigate('/cart')} data-testid="cart-btn"
             style={{ position:'relative',borderRadius:11,background:light?'transparent':'rgba(255,255,255,0.1)',border:`1px solid ${light?'#e5e7eb':'rgba(255,255,255,0.2)'}`,padding:'9px 16px',cursor:'pointer',display:'flex',alignItems:'center',gap:7,fontSize:13,fontWeight:700,color:light?'#374151':'#fff',fontFamily:'inherit',transition:'all 0.25s' }}
@@ -145,7 +153,6 @@ export default function Navbar({ cartCount, user, onLogout }) {
               </span>
             )}
           </button>
-
           {/* Admin */}
           <button onClick={() => { setAdminOpen(true); setAdminErr(''); setAdminForm({ email: '', password: '' }); }}
             style={{ background:'none', border:`1px solid ${light?'rgba(99,102,241,0.25)':'rgba(255,255,255,0.15)'}`, borderRadius:10, padding:'8px 14px', cursor:'pointer', display:'flex', alignItems:'center', gap:6, fontSize:12, fontWeight:700, color:light?'#6366f1':'rgba(255,255,255,0.6)', fontFamily:'inherit', transition:'all 0.2s', letterSpacing:'-0.1px' }}
@@ -153,7 +160,6 @@ export default function Navbar({ cartCount, user, onLogout }) {
             onMouseLeave={e=>{ e.currentTarget.style.background='none'; e.currentTarget.style.borderColor=light?'rgba(99,102,241,0.25)':'rgba(255,255,255,0.15)'; e.currentTarget.style.color=light?'#6366f1':'rgba(255,255,255,0.6)'; }}>
             ⚙️ Admin
           </button>
-
           {/* User */}
           {user ? (
             <div style={{ display:'flex',alignItems:'center',gap:9 }}>
@@ -178,8 +184,65 @@ export default function Navbar({ cartCount, user, onLogout }) {
               Sign in
             </button>
           )}
-        </div>
+        </div>}
+
+        {/* Mobile right: cart icon + hamburger */}
+        {isMobile && <div style={{ display:'flex',alignItems:'center',gap:8 }}>
+          <button onClick={()=>navigate('/cart')} data-testid="cart-btn"
+            style={{ position:'relative',background:'none',border:'none',cursor:'pointer',fontSize:22,padding:'4px',color:light?'#374151':'#fff' }}>
+            🛒
+            {cartCount > 0 && (
+              <span data-testid="cart-count" className={cartAnim?'cart-badge-bounce':''}
+                style={{ position:'absolute',top:-4,right:-4,background:'linear-gradient(135deg,#6366f1,#8b5cf6)',color:'#fff',borderRadius:'50%',width:18,height:18,display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:900,border:'2px solid #fff' }}>
+                {cartCount}
+              </span>
+            )}
+          </button>
+          <button onClick={()=>setMobileMenuOpen(o=>!o)}
+            style={{ background:'none',border:'none',cursor:'pointer',fontSize:24,color:light?'#374151':'#fff',padding:'4px',lineHeight:1 }}>
+            {mobileMenuOpen ? '✕' : '☰'}
+          </button>
+        </div>}
       </div>
+
+      {/* Mobile drawer */}
+      {isMobile && mobileMenuOpen && (
+        <div style={{ background:light?'rgba(255,255,255,0.98)':'rgba(15,15,30,0.97)',borderTop:`1px solid ${light?'#e5e7eb':'rgba(255,255,255,0.1)'}`,padding:'16px 18px 24px',display:'flex',flexDirection:'column',gap:10 }}>
+          {/* Search */}
+          <form onSubmit={e=>{ handleSearch(e); setMobileMenuOpen(false); }} style={{ display:'flex',borderRadius:10,overflow:'hidden',border:'1px solid #e5e7eb',background:'#f9fafb' }}>
+            <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search products..."
+              style={{ flex:1,padding:'11px 14px',fontSize:14,border:'none',outline:'none',fontFamily:'inherit',background:'transparent',color:'#0c0c1d' }} />
+            <button type="submit" style={{ padding:'11px 14px',background:'none',border:'none',cursor:'pointer',fontSize:16 }}>🔍</button>
+          </form>
+          {/* Nav links */}
+          {[['/', '🏠 Home'], ['/products', '🛍️ Products']].map(([path, label]) => (
+            <button key={path} onClick={()=>{ navigate(path); setMobileMenuOpen(false); }}
+              style={{ background:'none',border:'none',padding:'13px 4px',fontSize:15,fontWeight:600,color:light?'#374151':'rgba(255,255,255,0.85)',cursor:'pointer',fontFamily:'inherit',textAlign:'left',borderBottom:`1px solid ${light?'#f3f4f6':'rgba(255,255,255,0.07)'}` }}>
+              {label}
+            </button>
+          ))}
+          {/* Admin */}
+          <button onClick={()=>{ setAdminOpen(true); setAdminErr(''); setAdminForm({ email:'',password:'' }); setMobileMenuOpen(false); }}
+            style={{ background:'rgba(99,102,241,0.07)',border:'1.5px solid rgba(99,102,241,0.25)',borderRadius:11,padding:'13px',fontSize:14,fontWeight:700,color:'#6366f1',cursor:'pointer',fontFamily:'inherit',textAlign:'left' }}>
+            ⚙️ Admin dashboard
+          </button>
+          {/* User */}
+          {user ? (
+            <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'8px 4px' }}>
+              <span style={{ fontSize:14,fontWeight:600,color:light?'#374151':'rgba(255,255,255,0.85)' }}>👤 {user.name?.split(' ')[0]}</span>
+              <button onClick={()=>{ onLogout(); setMobileMenuOpen(false); }}
+                style={{ fontSize:13,fontWeight:700,color:'#ef4444',background:'none',border:'none',cursor:'pointer',fontFamily:'inherit' }}>
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <button onClick={()=>{ navigate('/login'); setMobileMenuOpen(false); }}
+              style={{ background:'linear-gradient(135deg,#6366f1,#8b5cf6)',color:'#fff',border:'none',borderRadius:11,padding:'13px',fontSize:14,fontWeight:800,cursor:'pointer',fontFamily:'inherit',boxShadow:'0 2px 14px rgba(99,102,241,0.38)' }}>
+              Sign in
+            </button>
+          )}
+        </div>
+      )}
     </nav>
 
     {/* ── Admin login modal ─────────────────────────────────────── */}
@@ -241,7 +304,7 @@ export default function Navbar({ cartCount, user, onLogout }) {
                   const data = await res.json();
                   if (!res.ok) { setAdminErr(data.error || 'Login failed'); return; }
                   const dest = DASHBOARD_URL ? `${DASHBOARD_URL}?token=${encodeURIComponent(data.token)}` : null;
-                  if (dest) { window.open(dest, '_blank'); setAdminOpen(false); }
+                  if (dest) { window.location.href = dest; setAdminOpen(false); }
                   else { setAdminErr('Set VITE_DASHBOARD_URL in .env with your deployed dashboard URL'); }
                 } catch { setAdminErr('Cannot connect to backend.'); }
                 finally   { setAdminLoading(false); }
