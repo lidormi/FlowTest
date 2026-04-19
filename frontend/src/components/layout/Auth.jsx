@@ -38,6 +38,8 @@ export function AuthProvider({ children }) {
   function logout() {
     localStorage.removeItem('ft_token');
     setUser(null);
+    const siteUrl = import.meta.env.VITE_SITE_URL || 'https://flowshopp.netlify.app';
+    window.location.href = siteUrl;
   }
 
   return (
