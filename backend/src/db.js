@@ -45,10 +45,6 @@ export async function run(sql, params = []) {
   return {};
 }
 
-// No-op — Supabase persists automatically
-export function saveDb() {}
-
-export function getDb() { return pool; }
 
 async function createSchema() {
   const statements = [
