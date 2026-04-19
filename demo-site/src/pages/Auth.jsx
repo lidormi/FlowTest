@@ -156,7 +156,7 @@ export default function Auth({ mode = 'login' }) {
           <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:18 }}>
             {mode==='register' && (
               <Field label="Full name" name="name" value={form.name}
-                onChange={v=>setForm(p=>({...p,name:v}))} placeholder="Yoni Cohen" />
+                onChange={v=>setForm(p=>({...p,name:v.replace(/[0-9]/g,'')}))} placeholder="Yoni Cohen" />
             )}
             <Field label="Email address" type="email" name="email" value={form.email}
               onChange={v=>setForm(p=>({...p,email:v}))} placeholder="you@example.com" />
