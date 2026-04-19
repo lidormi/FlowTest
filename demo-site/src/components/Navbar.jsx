@@ -112,7 +112,7 @@ export default function Navbar({ cartCount, user, onLogout }) {
               onChange={e=>setSearch(e.target.value)}
               onFocus={()=>setSearchOpen(true)}
               placeholder="Search products..."
-              style={{ flex:1,padding:'9px 14px',fontSize:13,border:'none',outline:'none',fontFamily:'inherit',background:'transparent',color:light?'#0c0c1d':'#fff' }}
+              style={{ flex:1,padding:'9px 14px',fontSize:13,border:'none',outline:'none',fontFamily:'inherit',background:'transparent',color:'#0c0c1d' }}
             />
             <button type="submit" style={{ padding:'9px 14px',background:'none',border:'none',cursor:'pointer',color:light?'#9ca3af':'rgba(255,255,255,0.5)',fontSize:15,display:'flex',alignItems:'center',transition:'color 0.2s' }}
               onMouseEnter={e=>e.currentTarget.style.color='#6366f1'}
