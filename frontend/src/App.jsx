@@ -29,7 +29,15 @@ function AppInner() {
   const [alertCount, setAlertCount] = useState(0);
   const [liveEvents, setLiveEvents] = useState([]);
   const [theme, setTheme] = useState('dark');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const stats = useApi('/dashboard/stats');
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   useEffect(() => {
     if (stats.data?.activeAlerts != null) setAlertCount(stats.data.activeAlerts);
@@ -75,25 +83,28 @@ function AppInner() {
 
   return (
     <div style={{ display:'flex',height:'100vh',overflow:'hidden' }}>
-      <Sidebar page={page} setPage={setPage} alertCount={alertCount} />
+      <Sidebar page={page} setPage={setPage} alertCount={alertCount} isMobile={isMobile} open={sidebarOpen} onClose={()=>setSidebarOpen(false)} />
       <div style={{ flex:1,display:'flex',flexDirection:'column',overflow:'hidden',background:'var(--bg)' }}>
         {/* Topbar */}
-        <div style={{ height:52,borderBottom:'1px solid var(--border)',display:'flex',alignItems:'center',padding:'0 22px',gap:12,background:'var(--bg)',flexShrink:0 }}>
+        <div style={{ height:52,borderBottom:'1px solid var(--border)',display:'flex',alignItems:'center',padding:'0 14px',gap:10,background:'var(--bg)',flexShrink:0 }}>
+          {isMobile && (
+            <button onClick={()=>setSidebarOpen(true)} style={{ background:'none',border:'none',cursor:'pointer',fontSize:22,color:'var(--text2)',padding:'4px',lineHeight:1,flexShrink:0 }}>☰</button>
+          )}
           <div style={{ flex:1,fontSize:15,fontWeight:600 }}>{TITLES[page]}</div>
-          <div style={{ display:'flex',alignItems:'center',gap:5,fontSize:11,color:'var(--green)' }}>
+          {!isMobile && <div style={{ display:'flex',alignItems:'center',gap:5,fontSize:11,color:'var(--green)' }}>
             <div style={{ width:6,height:6,borderRadius:'50%',background:'var(--green)',animation:'pulse-dot 2s infinite' }}/>
             Live
-          </div>
-          <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} style={{ background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:7,padding:'5px 9px',cursor:'pointer',fontSize:14,color:'var(--text2)' }}>
+          </div>}
+          <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} style={{ background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:7,padding:'5px 9px',cursor:'pointer',fontSize:14,color:'var(--text2)',flexShrink:0 }}>
             {theme==='dark'?'☀':'🌙'}
           </button>
-          {page==='tests' && <button className="btn btn-ghost" onClick={()=>setPage('scheduler')} style={{ fontSize:11 }}>📅 Schedule</button>}
-          <div onClick={logout} style={{ display:'flex',alignItems:'center',gap:7,padding:'4px 8px',background:'var(--bg3)',borderRadius:7,cursor:'pointer' }}>
+          {!isMobile && page==='tests' && <button className="btn btn-ghost" onClick={()=>setPage('scheduler')} style={{ fontSize:11 }}>📅 Schedule</button>}
+          <div onClick={logout} style={{ display:'flex',alignItems:'center',gap:6,padding:'4px 8px',background:'var(--bg3)',borderRadius:7,cursor:'pointer',flexShrink:0 }}>
             <div style={{ width:22,height:22,borderRadius:'50%',background:'linear-gradient(135deg,var(--purple),var(--blue))',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontWeight:700,color:'#fff' }}>
               {(user.name||'U').slice(0,2).toUpperCase()}
             </div>
-            <span style={{ fontSize:11,color:'var(--text2)' }}>{user.name}</span>
-            <span style={{ fontSize:9,color:'var(--text3)' }}>↪ out</span>
+            {!isMobile && <span style={{ fontSize:11,color:'var(--text2)' }}>{user.name}</span>}
+            <span style={{ fontSize:isMobile?11:9,color:isMobile?'var(--red)':'var(--text3)',fontWeight:isMobile?700:400 }}>↪ out</span>
           </div>
         </div>
 

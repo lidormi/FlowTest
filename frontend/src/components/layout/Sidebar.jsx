@@ -15,10 +15,12 @@ const CONFIG_PAGES = [
   { id: 'settings', icon: '◉',  label: 'Settings' },
 ];
 
-export default function Sidebar({ page, setPage, alertCount }) {
-  return (
-    <aside style={{ width: 200, background: 'var(--bg2)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-      <div style={{ padding: '18px 16px 14px', borderBottom: '1px solid var(--border)' }}>
+export default function Sidebar({ page, setPage, alertCount, isMobile, open, onClose }) {
+  if (isMobile && !open) return null;
+
+  const nav = (
+    <aside style={{ width: 200, background: 'var(--bg2)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', flexShrink: 0, height: '100%' }}>
+      <div style={{ padding: '18px 16px 14px', borderBottom: '1px solid var(--border)', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
           <div style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,var(--blue),var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', fontFamily: 'var(--mono)' }}>FT</div>
           <div>
@@ -26,12 +28,13 @@ export default function Sidebar({ page, setPage, alertCount }) {
             <div style={{ fontSize: 9, color: 'var(--blue)', background: 'var(--blue-dim)', padding: '1px 6px', borderRadius: 4, fontFamily: 'var(--mono)', display: 'inline-block' }}>v1.1</div>
           </div>
         </div>
+        {isMobile && <button onClick={onClose} style={{ background:'none', border:'none', cursor:'pointer', fontSize:20, color:'var(--text2)', padding:'4px' }}>✕</button>}
       </div>
       <nav style={{ flex: 1, padding: '8px 0', overflowY: 'auto' }}>
         <Section label="Main" />
-        {MAIN_PAGES.map(p => <NavItem key={p.id} {...p} active={page===p.id} onClick={()=>setPage(p.id)} badge={p.id==='dashboard'&&alertCount>0?alertCount:null}/>)}
+        {MAIN_PAGES.map(p => <NavItem key={p.id} {...p} active={page===p.id} onClick={()=>{ setPage(p.id); if(isMobile) onClose(); }} badge={p.id==='dashboard'&&alertCount>0?alertCount:null}/>)}
         <Section label="Config" />
-        {CONFIG_PAGES.map(p => <NavItem key={p.id} {...p} active={page===p.id} onClick={()=>setPage(p.id)}/>)}
+        {CONFIG_PAGES.map(p => <NavItem key={p.id} {...p} active={page===p.id} onClick={()=>{ setPage(p.id); if(isMobile) onClose(); }}/>)}
       </nav>
       <div style={{ padding: 12, borderTop: '1px solid var(--border)' }}>
         <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: '6px 9px', display: 'flex', alignItems: 'center', gap: 7 }}>
@@ -41,6 +44,16 @@ export default function Sidebar({ page, setPage, alertCount }) {
       </div>
     </aside>
   );
+
+  if (isMobile) return (
+    <div style={{ position:'fixed', inset:0, zIndex:1000 }} onClick={onClose}>
+      <div onClick={e=>e.stopPropagation()} style={{ height:'100%', width:220, background:'var(--bg2)', boxShadow:'4px 0 24px rgba(0,0,0,0.3)' }}>
+        {nav}
+      </div>
+    </div>
+  );
+
+  return nav;
 }
 
 function Section({ label }) {
