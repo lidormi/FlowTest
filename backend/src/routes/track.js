@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 const router = Router();
 
 async function validateApiKey(req, res, next) {
-  const key = req.headers['x-api-key'] || req.query.key;
+  const key = req.headers['x-api-key'];
   if (!key) return res.status(401).json({ error: 'Missing API key' });
   const project = await queryOne('SELECT * FROM projects WHERE api_key=?', [key]);
   if (!project) return res.status(401).json({ error: 'Invalid API key' });

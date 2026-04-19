@@ -6,9 +6,12 @@
 import { Router } from 'express';
 import Anthropic from '@anthropic-ai/sdk';
 import { query, queryOne, run } from '../db.js';
+import { requireAuth } from './auth.js';
 
 const router = Router();
 const PID = 'proj_demo_001';
+
+router.use(requireAuth);
 
 function getClient() {
   const key = process.env.ANTHROPIC_API_KEY;

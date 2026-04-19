@@ -1,8 +1,11 @@
 import { Router } from 'express';
 import { query, queryOne } from '../db.js';
+import { requireAuth } from './auth.js';
 
 const router = Router();
 const PID = 'proj_demo_001';
+
+router.use(requireAuth);
 
 router.get('/', async (req, res) => {
   try {

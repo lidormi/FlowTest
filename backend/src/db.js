@@ -183,15 +183,17 @@ async function createSchema() {
 }
 
 async function seedDemoUser() {
-  const { createHmac } = await import('crypto');
-  const JWT_SECRET = process.env.JWT_SECRET || 'flowtest_dev_secret_2024';
-  const hash = (p) => createHmac('sha256', JWT_SECRET).update(p).digest('hex');
+  const bcrypt = await import('bcryptjs');
+  const hash = await bcrypt.default.hash('demo123', 12);
 
   const exists = await queryOne("SELECT id FROM users WHERE email='demo@flowtest.io'");
   if (!exists) {
     const { v4: uuid } = await import('uuid');
     await run('INSERT INTO users(id,email,name,password_hash,plan) VALUES(?,?,?,?,?)',
-      [uuid(), 'demo@flowtest.io', 'Demo User', hash('demo123'), 'pro']);
+      [uuid(), 'demo@flowtest.io', 'Demo User', hash, 'pro']);
     console.log('✅ Demo user created');
+  } else {
+    // Always update hash to bcrypt format in case it was seeded with old HMAC
+    await run("UPDATE users SET password_hash=? WHERE email='demo@flowtest.io'", [hash]);
   }
 }

@@ -1,8 +1,11 @@
 import { Router } from 'express';
 import { query, queryOne, run } from '../db.js';
 import { getSchedules, startSchedule, stopSchedule, getCronPresets } from '../scheduler.js';
+import { requireAuth } from './auth.js';
 
 const router = Router();
+
+router.use(requireAuth);
 const PID = 'proj_demo_001';
 
 router.get('/', async (req, res) => {

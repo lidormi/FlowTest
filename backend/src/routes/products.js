@@ -61,6 +61,7 @@ router.post('/orders', optionalAuth, async (req, res) => {
     if (!billing?.email || !billing?.name) return res.status(400).json({ error: 'Billing info required' });
     if (!card?.number || !card?.expiry || !card?.cvc) return res.status(400).json({ error: 'Card details required' });
     const digits = card.number.replace(/\D/g,'');
+    const last4 = digits.slice(-4);
     let total = 0;
     const lineItems = [];
     for (const item of items) {
@@ -75,7 +76,7 @@ router.post('/orders', optionalAuth, async (req, res) => {
     }
     const orderId = `ord_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
     await run('INSERT INTO orders(id,user_id,items,billing,total,status,created_at) VALUES(?,?,?,?,?,?,?)',
-      [orderId, req.user?.userId||null, JSON.stringify(lineItems), JSON.stringify({ name:billing.name, email:billing.email, country:billing.country||'IL' }), total, 'paid', Date.now()]);
+      [orderId, req.user?.userId||null, JSON.stringify(lineItems), JSON.stringify({ name:billing.name, email:billing.email, country:billing.country||'IL', card_last4: last4 }), total, 'paid', Date.now()]);
     res.json({ success:true, order:{ id:orderId, total, items:lineItems, billing:{ name:billing.name, email:billing.email }, status:'paid', createdAt:new Date().toISOString() } });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
