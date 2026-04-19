@@ -106,13 +106,13 @@ export default function Navbar({ cartCount, user, onLogout }) {
 
         {/* Search bar — desktop only */}
         {!isMobile && <div ref={searchRef} style={{ flex:1,maxWidth:400,position:'relative' }}>
-          <form onSubmit={handleSearch} style={{ display:'flex',borderRadius:10,overflow:'hidden',border:`1px solid ${light?'#e5e7eb':'rgba(255,255,255,0.18)'}`,background:light?'#f9fafb':'rgba(255,255,255,0.1)',transition:'all 0.2s',boxShadow:searchOpen?'0 0 0 3px rgba(99,102,241,0.15)':'none' }}>
+          <form onSubmit={handleSearch} style={{ display:'flex',borderRadius:10,overflow:'hidden',border:`1px solid ${light?'#e5e7eb':'rgba(255,255,255,0.18)'}`,background:'rgba(255,255,255,0.95)',transition:'all 0.2s',boxShadow:searchOpen?'0 0 0 3px rgba(99,102,241,0.15)':'none' }}>
             <input
               value={search}
               onChange={e=>setSearch(e.target.value)}
               onFocus={()=>setSearchOpen(true)}
               placeholder="Search products..."
-              style={{ flex:1,padding:'9px 14px',fontSize:13,border:'none',outline:'none',fontFamily:'inherit',background:'transparent',color:'#0c0c1d' }}
+              style={{ flex:1,padding:'9px 14px',fontSize:13,border:'none',outline:'none',fontFamily:'inherit',background:'transparent',color:'#0c0c1d',WebkitTextFillColor:'#0c0c1d' }}
             />
             <button type="submit" style={{ padding:'9px 14px',background:'none',border:'none',cursor:'pointer',color:light?'#9ca3af':'rgba(255,255,255,0.5)',fontSize:15,display:'flex',alignItems:'center',transition:'color 0.2s' }}
               onMouseEnter={e=>e.currentTarget.style.color='#6366f1'}
