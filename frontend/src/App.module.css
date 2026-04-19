@@ -1,0 +1,157 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ── Topbar ───────────────────────────────────── */
+.topbar {
+  height: 52px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 10px;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.topbarTitle {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--green);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse-dot 2s infinite;
+}
+
+.themeBtn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text2);
+  flex-shrink: 0;
+}
+
+.hamburgerBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--text2);
+  padding: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--bg3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.userMenu:hover {
+  background: var(--bg4);
+}
+
+.userAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.userName {
+  font-size: 11px;
+  color: var(--text2);
+}
+
+.logoutIcon {
+  font-size: 9px;
+  color: var(--text3);
+}
+
+.logoutIconMobile {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+/* ── Content area ─────────────────────────────── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.contentPadded {
+  padding: 18px 22px;
+}
+
+/* ── Loading screen ───────────────────────────── */
+.loadingScreen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+.loadingInner {
+  text-align: center;
+}
+
+.loadingLogo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--mono);
+  margin-bottom: 12px;
+}
+
+.loadingText {
+  font-size: 12px;
+  color: var(--text2);
+}
