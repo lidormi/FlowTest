@@ -98,7 +98,7 @@ export default function Products() {
             style={{ maxWidth:580,margin:'0 auto',display:'flex',borderRadius:14,overflow:'hidden',boxShadow:'0 8px 40px rgba(0,0,0,0.35)',border:'1px solid rgba(255,255,255,0.1)' }}>
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)}
               placeholder="Search headphones, keyboards, accessories..."
-              style={{ flex:1,padding:'16px 22px',fontSize:14,border:'none',outline:'none',fontFamily:'inherit',background:'rgba(255,255,255,0.97)',color:'#0c0c1d' }} />
+              style={{ flex:1,padding:'16px 22px',fontSize:14,border:'none',outline:'none',fontFamily:'inherit',background:'#fff',color:'#0c0c1d',WebkitTextFillColor:'#0c0c1d' }} />
             <button type="submit"
               style={{ padding:'16px 28px',background:'linear-gradient(135deg,#6366f1,#8b5cf6)',border:'none',color:'#fff',fontSize:18,cursor:'pointer',fontWeight:800,fontFamily:'inherit',transition:'filter 0.2s' }}
               onMouseEnter={e=>e.currentTarget.style.filter='brightness(1.15)'}
