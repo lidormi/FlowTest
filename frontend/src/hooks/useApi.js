@@ -3,8 +3,12 @@ import { useState, useEffect, useCallback } from 'react';
 const BASE = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
 
 async function apiFetch(path, opts = {}) {
+  const token = localStorage.getItem('ft_token');
   const res = await fetch(BASE + path, {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     ...opts
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
