@@ -53,7 +53,10 @@
       "Bash(curl -s http://localhost:3001/api/tests/test_003)",
       "Bash(curl -s -X POST http://localhost:3001/api/tests/test_004/run)",
       "Bash(curl -s -X POST http://localhost:3001/api/tests/test_003/run)",
-      "Bash(curl -s https://flowtest-production.up.railway.app/api/health)"
+      "Bash(curl -s https://flowtest-production.up.railway.app/api/health)",
+      "Bash(lsof -ti:3001)",
+      "Bash(node --env-file=../.env src/index.js)",
+      "Bash(curl -s -X OPTIONS http://localhost:3001/api/auth/login -H \"Origin: https://flowshopp.netlify.app\" -H \"Access-Control-Request-Method: POST\" -v)"
     ]
   }
 }

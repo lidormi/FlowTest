@@ -1,0 +1,313 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Stat cards row */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.statCard {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.statLabel {
+  font-size: 10px;
+  color: var(--text2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.statValue {
+  font-size: 26px;
+  font-weight: 700;
+  font-family: var(--mono);
+  line-height: 1;
+}
+
+.statValueEmpty {
+  font-size: 16px;
+  color: var(--text3);
+}
+
+.statChange {
+  font-size: 10px;
+  margin-top: 6px;
+}
+
+/* Mid row */
+.midRow {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 12px;
+}
+
+/* Chart header */
+.chartControls {
+  display: flex;
+  gap: 4px;
+}
+
+.chartTypeBtn {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--font);
+  border-width: 1px;
+  border-style: solid;
+  transition: all 0.13s;
+}
+
+.chartTypeBtnActive {
+  background: var(--blue-dim);
+  color: var(--blue);
+  border-color: rgba(79,142,247,0.3);
+}
+
+.chartTypeBtnInactive {
+  background: transparent;
+  color: var(--text3);
+  border-color: var(--border);
+}
+
+.csvLink {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  text-decoration: none;
+  background: var(--bg4);
+  color: var(--text2);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Chart legend */
+.chartLegend {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--text2);
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* Alert item */
+.alertItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 9px;
+  background: var(--bg3);
+  border-radius: 7px;
+  border-left-width: 2.5px;
+  border-left-style: solid;
+}
+
+.alertIcon { font-size: 12px; margin-top: 1px; }
+
+.alertBody { flex: 1; min-width: 0; }
+
+.alertTitle {
+  font-size: 11.5px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alertDesc {
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alertMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.alertTime {
+  font-size: 9px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+
+.resolveBtn {
+  font-size: 8px;
+  padding: 1px 6px;
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--text2);
+  cursor: pointer;
+}
+
+.resolveBtn:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.noAlerts {
+  font-size: 12px;
+  color: var(--text3);
+  text-align: center;
+  padding: 24px 0;
+}
+
+.noAlertsIcon { font-size: 22px; margin-bottom: 6px; }
+
+/* Bottom row */
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* Recent sessions */
+.sessionRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 7px;
+  background: var(--bg3);
+  border-radius: 6px;
+}
+
+.sessionDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sessionInfo { flex: 1; min-width: 0; }
+
+.sessionPage {
+  font-size: 11px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sessionMeta {
+  font-size: 9px;
+  color: var(--text2);
+}
+
+/* Insights snapshot */
+.snapshotRow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.snapshotIcon { font-size: 13px; width: 20px; }
+
+.snapshotLabel {
+  font-size: 11px;
+  color: var(--text2);
+  width: 72px;
+  flex-shrink: 0;
+}
+
+.snapshotBar {
+  flex: 1;
+  height: 5px;
+  background: var(--bg4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.snapshotBarFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.snapshotValue {
+  font-size: 11px;
+  font-family: var(--mono);
+  font-weight: 600;
+  width: 36px;
+  text-align: right;
+}
+
+/* Live dot */
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse-dot 2s infinite;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--green);
+}
+
+/* Skeleton */
+.skeleton {
+  background: var(--bg3);
+  border-radius: 7px;
+}
+
+/* Sessions list */
+.sessionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Snapshot list */
+.snapshotList {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+/* Export link in session card */
+.exportLink {
+  font-size: 10px;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.exportLink:hover {
+  text-decoration: underline;
+}

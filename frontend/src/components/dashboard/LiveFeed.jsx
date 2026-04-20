@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import styles from './LiveFeed.module.css';
 
 export default function LiveFeed({ events }) {
   const bottomRef = useRef(null);
@@ -9,18 +10,16 @@ export default function LiveFeed({ events }) {
 
   if (!events.length) {
     return (
-      <div style={{ padding: '16px', textAlign: 'center' }}>
-        <div style={{ fontSize: 20, marginBottom: 6 }}>📡</div>
-        <div style={{ fontSize: 11, color: 'var(--text3)' }}>Waiting for live events...</div>
+      <div className={styles.empty}>
+        <div className={styles.emptyIcon}>📡</div>
+        <div className={styles.emptyText}>Waiting for live events...</div>
       </div>
     );
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, maxHeight: 200, overflowY: 'auto' }}>
-      {events.map((e, i) => (
-        <LiveEvent key={i} event={e} />
-      ))}
+    <div className={styles.list}>
+      {events.map((e, i) => <LiveEvent key={i} event={e} />)}
       <div ref={bottomRef} />
     </div>
   );
@@ -28,36 +27,28 @@ export default function LiveFeed({ events }) {
 
 function LiveEvent({ event }) {
   const isAlert = event.type === 'alert';
-  const colors = { completed: 'var(--green)', dropped: 'var(--red)', active: 'var(--blue)' };
-  const statusColor = colors[event.data?.status] || 'var(--text2)';
+  const statusColors = { completed: 'var(--green)', dropped: 'var(--red)', active: 'var(--blue)' };
+  const statusColor = statusColors[event.data?.status] || 'var(--text2)';
+  const dotColor = isAlert ? 'var(--red)' : statusColor;
 
   return (
-    <div style={{
-      display: 'flex', alignItems: 'center', gap: 8,
-      padding: '5px 8px', borderRadius: 6,
-      background: isAlert ? 'rgba(239,68,68,0.06)' : 'var(--bg3)',
-      border: `1px solid ${isAlert ? 'rgba(239,68,68,0.15)' : 'var(--border)'}`,
-      animation: 'fadeIn 0.3s ease'
-    }}>
-      <div style={{
-        width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
-        background: isAlert ? 'var(--red)' : statusColor,
-        boxShadow: `0 0 6px ${isAlert ? 'var(--red)' : statusColor}`
-      }} />
-      <div style={{ flex: 1, minWidth: 0 }}>
+    <div className={`${styles.event} ${isAlert ? styles.eventAlert : ''}`}>
+      <div
+        className={styles.dot}
+        style={{ background: dotColor, boxShadow: `0 0 6px ${dotColor}` }}
+      />
+      <div className={styles.eventBody}>
         {isAlert ? (
-          <span style={{ fontSize: 11, color: 'var(--red)' }}>
-            🚨 {event.data?.title}
-          </span>
+          <span className={styles.alertText}>🚨 {event.data?.title}</span>
         ) : (
-          <span style={{ fontSize: 11 }}>
-            <span style={{ color: 'var(--text2)', fontFamily: 'var(--mono)', fontSize: 10 }}>{event.data?.id?.slice(0, 14)}</span>
+          <span className={styles.sessionText}>
+            <span className={styles.sessionId}>{event.data?.id?.slice(0, 14)}</span>
             {' '}<span style={{ color: statusColor }}>{event.data?.page}</span>
-            {' '}<span style={{ color: 'var(--text3)', fontSize: 10 }}>{event.data?.country}</span>
+            {' '}<span className={styles.sessionCountry}>{event.data?.country}</span>
           </span>
         )}
       </div>
-      <span style={{ fontSize: 9, color: 'var(--text3)', fontFamily: 'var(--mono)', flexShrink: 0 }}>
+      <span className={styles.eventTime}>
         {new Date(event.time).toLocaleTimeString()}
       </span>
     </div>

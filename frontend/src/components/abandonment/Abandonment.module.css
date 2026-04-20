@@ -1,0 +1,95 @@
+.header { margin-bottom: 22px; }
+.headerTitle { font-size: 20px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.4px; }
+.headerSub { font-size: 13px; color: var(--text2); margin: 0; }
+
+.kpiGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+.kpiCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.kpiCardTop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.kpiLabel { font-size: 11px; color: var(--text2); font-weight: 500; }
+.kpiIcon { font-size: 16px; }
+.kpiSub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+.tabs { display: flex; gap: 6px; margin-bottom: 18px; }
+.tab {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text2);
+}
+
+/* Reasons */
+.reasonsList { display: flex; flex-direction: column; gap: 10px; }
+.reasonCard { background: var(--bg2); border-radius: 12px; padding: 16px; cursor: pointer; transition: border-color .15s; }
+.reasonCardBody { display: flex; align-items: center; gap: 12px; }
+.reasonIcon { font-size: 20px; flex-shrink: 0; }
+.reasonContent { flex: 1; min-width: 0; }
+.reasonTitleRow { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+.reasonTitle { font-size: 13.5px; font-weight: 700; }
+.reasonRank { font-size: 10px; color: var(--text3); }
+.barRow { display: flex; align-items: center; gap: 8px; }
+.barWrap { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.barFill { height: 100%; border-radius: 3px; transition: width .4s ease; }
+.chevron { font-size: 12px; color: var(--text3); transition: transform .2s; }
+.chevronOpen { transform: rotate(180deg); }
+
+.reasonDetail { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.reasonDesc { font-size: 12.5px; color: var(--text2); line-height: 1.65; margin: 0 0 12px; }
+.pageTagList { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.pageTag { font-size: 10.5px; font-family: var(--mono); color: var(--text2); background: var(--bg3); padding: 3px 8px; border-radius: 5px; }
+.fixesLabel { font-weight: 600; font-size: 11.5px; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+.fixesList { display: flex; flex-direction: column; gap: 8px; }
+.fixRow { display: flex; align-items: center; gap: 10px; background: var(--bg3); border-radius: 8px; padding: 10px 12px; }
+.fixAction { flex: 1; font-size: 12.5px; }
+
+/* Funnel tab */
+.funnelCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+.funnelTitle { margin: 0 0 20px; font-size: 14px; font-weight: 700; }
+.funnelSteps { display: flex; flex-direction: column; gap: 10px; }
+.funnelStepRow { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.funnelStepLabel { font-size: 12px; color: var(--text2); width: 130px; flex-shrink: 0; }
+.funnelBarWrap { flex: 1; height: 32px; background: var(--bg3); border-radius: 6px; overflow: hidden; position: relative; }
+.funnelBarFill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; transition: width .6s ease; }
+.funnelBarLabel { font-size: 11px; font-weight: 700; color: #fff; }
+.funnelBarLabelOut { position: absolute; top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 700; color: var(--text2); }
+.dropNote { margin-top: 20px; padding: 12px 16px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); border-radius: 9px; }
+.dropNoteTitle { font-size: 12.5px; font-weight: 600; color: #ef4444; margin-bottom: 4px; }
+.dropNoteDesc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+/* Device tab */
+.deviceGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.deviceCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+.deviceCardTitle { margin: 0 0 16px; font-size: 14px; font-weight: 700; }
+.deviceRows { display: flex; flex-direction: column; gap: 12px; }
+.deviceRow { display: flex; align-items: center; gap: 10px; }
+.deviceLabel { font-size: 12px; width: 70px; color: var(--text2); }
+.deviceBarWrap { flex: 1; height: 28px; background: var(--bg3); border-radius: 6px; overflow: hidden; }
+.deviceBarFill { height: 100%; border-radius: 6px; }
+.deviceCount { font-size: 11px; font-weight: 600; min-width: 50px; text-align: right; color: var(--text2); }
+.deviceConv { font-size: 11px; font-weight: 700; min-width: 45px; text-align: right; }
+.deviceNote { margin-top: 16px; padding: 10px 12px; border-radius: 8px; font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+/* Action plan tab */
+.priorityLegend { display: flex; gap: 10px; margin-bottom: 18px; }
+.priorityTag { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; font-size: 12px; }
+.priorityTagLabel { color: var(--text2); }
+.priorityGroup { margin-bottom: 22px; }
+.priorityGroupTitle { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.priorityGroupLabel { font-size: 13px; font-weight: 600; }
+.actionItems { display: flex; flex-direction: column; gap: 8px; }
+.actionItem { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
+.actionIcon { font-size: 16px; flex-shrink: 0; }
+.actionContent { flex: 1; min-width: 0; }
+.actionTitle { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.actionFrom { font-size: 11px; color: var(--text3); }
+.actionRight { text-align: right; flex-shrink: 0; }
+.actionImpact { font-size: 12px; font-weight: 700; color: #22c55e; }
+.actionEffort { font-size: 10px; margin-top: 2px; }
+
+.totalImpactBox { background: rgba(79,142,247,0.06); border: 1px solid rgba(79,142,247,0.15); border-radius: 12px; padding: 16px 18px; margin-top: 8px; }
+.totalImpactTitle { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+.totalImpactDesc { font-size: 12.5px; color: var(--text2); line-height: 1.7; }

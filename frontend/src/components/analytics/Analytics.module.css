@@ -1,0 +1,81 @@
+.page { display: flex; flex-direction: column; gap: 14px; }
+
+.topRow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* Pie legend lists */
+.pieList { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+
+.legendRow { display: flex; align-items: center; gap: 8px; }
+
+.legendDot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+.legendName { flex: 1; font-size: 11px; }
+
+.legendSessions { font-size: 11px; font-family: var(--mono); color: var(--text2); }
+
+.legendDrop { font-size: 10px; color: var(--red); }
+
+/* Heatmap */
+.heatmapSelect {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  outline: none;
+}
+
+.heatmapLegendRow { display: flex; gap: 12px; margin-bottom: 10px; font-size: 11px; }
+
+.heatmapLegendItem { display: flex; align-items: center; gap: 6px; }
+
+.heatmapLegendDot { width: 12px; height: 12px; border-radius: 2px; }
+
+.heatmapLegendText { color: var(--text2); }
+
+.heatmapPageLabel { color: var(--text3); margin-left: auto; }
+
+.heatmapGrid {
+  gap: 2px;
+  background: var(--bg3);
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid var(--border);
+}
+
+.heatmapCell { height: 14px; border-radius: 2px; transition: background 0.2s; }
+
+.heatLegendRow { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 10px; color: var(--text3); }
+
+.heatLegendDot { width: 18px; height: 8px; border-radius: 2px; }
+
+/* Funnel table */
+.funnelTableWrap { overflow-x: auto; }
+
+.funnelTable { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+.funnelTh {
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.funnelTr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+.funnelTr:hover { background: var(--bg3); }
+
+.funnelTd { padding: 8px 10px; }
+.funnelTdMono { padding: 8px 10px; font-family: var(--mono); }
+.funnelTdBlue { padding: 8px 10px; font-family: var(--mono); font-size: 11px; color: var(--blue); }
+
+.dropRateCell { display: flex; align-items: center; gap: 7px; }
+.dropRateBar { width: 50px; height: 5px; background: var(--bg4); border-radius: 3px; overflow: hidden; }
+.dropRateBarFill { height: 100%; border-radius: 3px; }
+
+.skeleton { background: var(--bg3); border-radius: 7px; }

@@ -1,0 +1,61 @@
+.page { max-width: 740px; display: flex; flex-direction: column; gap: 14px; }
+
+.section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+
+.sectionTitle { font-size: 13.5px; font-weight: 600; margin-bottom: 12px; }
+
+.formGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.formLabel { font-size: 11px; color: var(--text2); display: block; margin-bottom: 5px; }
+
+.formSelect {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font);
+}
+
+.cronPreview { font-size: 11px; color: var(--text2); font-family: var(--mono); background: var(--bg3); padding: 6px 10px; border-radius: 6px; }
+.cronPreviewVal { color: var(--blue); }
+
+.msgSuccess { font-size: 12px; color: var(--green); }
+.msgError { font-size: 12px; color: var(--red); }
+
+.skeleton { height: 60px; background: var(--bg3); border-radius: 7px; }
+
+.emptyState { text-align: center; padding: 24px 0; color: var(--text3); font-size: 12px; }
+.emptyIcon { font-size: 22px; margin-bottom: 6px; }
+
+.scheduleList { display: flex; flex-direction: column; gap: 6px; }
+
+.scheduleRow { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; }
+
+.liveDot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); flex-shrink: 0; }
+
+.scheduleInfo { flex: 1; }
+.scheduleName { font-size: 12.5px; font-weight: 500; }
+.scheduleMeta { font-size: 11px; color: var(--text2); margin-top: 1px; }
+.scheduleExpr { font-family: var(--mono); color: var(--blue); }
+.scheduleTime { color: var(--text3); }
+
+.presetGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+.presetItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 10px;
+  background: var(--bg3);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.presetItem:hover { background: var(--bg4); }
+
+.presetLabel { font-size: 11px; color: var(--text2); }
+.presetExpr { font-size: 10px; font-family: var(--mono); color: var(--blue); }

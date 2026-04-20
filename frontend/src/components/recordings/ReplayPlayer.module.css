@@ -1,0 +1,90 @@
+.empty {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d1117;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.emptyContent { text-align: center; color: var(--text3); }
+.emptyIcon { font-size: 24px; margin-bottom: 8px; }
+.emptyText { font-size: 12px; }
+
+.canvasWrap { position: relative; background: #0d1117; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.canvas { width: 100%; height: auto; display: block; }
+
+.overlayTopLeft {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 10px;
+  background: rgba(0,0,0,0.6);
+  color: var(--text2);
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-family: var(--mono);
+}
+.overlayTopRight {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+  background: rgba(0,0,0,0.6);
+  color: var(--text2);
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+
+.controls { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+
+.progressWrap { position: relative; height: 4px; background: var(--bg4); border-radius: 2px; cursor: pointer; }
+.progressBar { height: 100%; background: var(--blue); border-radius: 2px; }
+.progressThumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid var(--bg2);
+}
+
+.controlsRow { display: flex; align-items: center; gap: 8px; }
+
+.playBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: none;
+  color: #fff;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timeDisplay { font-size: 10px; font-family: var(--mono); color: var(--text2); flex: 1; }
+
+.speedBtns { display: flex; gap: 3px; }
+
+.speedBtn {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font);
+  background: var(--bg4);
+  color: var(--text3);
+  border: 1px solid var(--border);
+}
+.speedBtnActive { background: var(--blue-dim); color: var(--blue); border-color: rgba(79,142,247,0.3); }
+
+.legend { display: flex; gap: 12px; margin-top: 6px; font-size: 10px; color: var(--text3); }
+.legendItem { display: flex; align-items: center; gap: 4px; }
+.legendDot { width: 8px; height: 8px; border-radius: 50%; }
+.legendSquare { width: 8px; height: 8px; border-radius: 1px; background: rgba(255,255,255,0.15); }

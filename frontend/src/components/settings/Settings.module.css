@@ -1,0 +1,166 @@
+.page {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Section */
+.section {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.sectionDanger {
+  border-color: rgba(239,68,68,0.25);
+}
+
+.sectionHead { margin-bottom: 12px; }
+
+.sectionTitle {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.sectionTitleDanger { color: var(--red); }
+
+.sectionSub {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 3px;
+}
+
+/* API key row */
+.apiKeyRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.apiKeyText {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text2);
+  flex: 1;
+  letter-spacing: 1px;
+}
+
+.apiKeyHint {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 8px;
+}
+
+/* Toggle row */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.toggleInfo { flex: 1; }
+
+.toggleLabel {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.toggleDesc {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+/* Toggle control */
+.toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.toggleOn {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.toggleOff {
+  background: var(--bg4);
+  border-color: var(--border2);
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.toggleThumbOn  { left: 17px; }
+.toggleThumbOff { left: 2px; }
+
+/* Team members */
+.memberList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.memberRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: var(--bg3);
+  border-radius: 8px;
+}
+
+.memberAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.memberInfo { flex: 1; }
+
+.memberName {
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.memberEmail {
+  font-size: 10px;
+  color: var(--text2);
+}
+
+/* Danger zone */
+.dangerRow {
+  display: flex;
+  gap: 10px;
+}

@@ -1,0 +1,258 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* Funnel */
+.funnelList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.funnelStep {
+  padding: 8px 10px;
+  border-radius: 7px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.funnelStepNormal { background: var(--bg3); border-color: var(--border); }
+.funnelStepBad    { background: rgba(239,68,68,0.04); border-color: rgba(239,68,68,0.2); }
+
+.funnelStepRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.funnelStepLabel {
+  font-size: 11px;
+  font-weight: 600;
+  width: 90px;
+}
+
+.funnelBar {
+  flex: 1;
+  height: 12px;
+  background: var(--bg4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.funnelBarFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s ease;
+}
+
+.funnelPct {
+  font-size: 11px;
+  font-family: var(--mono);
+  width: 36px;
+  text-align: right;
+}
+
+.funnelMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text3);
+}
+
+/* Rage click item */
+.rageList { display: flex; flex-direction: column; gap: 6px; }
+.rageEmpty { font-size: 12px; color: var(--text3); padding: 20px 0; text-align: center; }
+
+.rageItem {
+  padding: 8px 10px;
+  background: var(--bg3);
+  border-radius: 7px;
+  border-left-width: 2.5px;
+  border-left-style: solid;
+}
+
+.rageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rageTarget {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.rageCount {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--mono);
+  margin-left: 8px;
+}
+
+.rageBarWrap {
+  height: 3px;
+  background: var(--bg4);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.rageBarFill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+/* Slow pages */
+.slowList { display: flex; flex-direction: column; gap: 6px; }
+
+.slowItem {
+  padding: 8px 10px;
+  background: var(--bg3);
+  border-radius: 7px;
+}
+
+.slowItemRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slowUrl {
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.slowDur {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--mono);
+  margin-left: 8px;
+}
+
+.slowViews {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+/* Issues grid */
+.issuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.issueCard {
+  background: var(--bg3);
+  border-radius: 8px;
+  padding: 12px 14px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.issueTitle {
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.issueDesc {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.issueImpact {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.issueProgressWrap {
+  margin-top: 6px;
+  height: 3px;
+  background: var(--bg4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.issueProgressFill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+/* AI Suggestions */
+.aiBadge {
+  font-size: 9px;
+  color: var(--purple);
+  background: rgba(139,92,246,0.12);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.suggestionList { display: flex; flex-direction: column; gap: 6px; }
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(79,142,247,0.04);
+  border: 1px solid rgba(79,142,247,0.12);
+  border-radius: 8px;
+}
+
+.suggestionIcon { font-size: 16px; }
+
+.suggestionBody { flex: 1; }
+
+.suggestionTitle {
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.suggestionDesc {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+.suggestionImpact {
+  font-size: 10px;
+  color: var(--green);
+  background: var(--green-dim);
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.noSuggestions {
+  font-size: 12px;
+  color: var(--text3);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.skeleton {
+  background: var(--bg3);
+  border-radius: 7px;
+}

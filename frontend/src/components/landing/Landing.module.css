@@ -1,0 +1,100 @@
+.page { max-width: 900px; margin: 0 auto; padding-bottom: 40px; }
+
+.hero {
+  text-align: center;
+  padding: 40px 20px 36px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.08) 0%, transparent 70%);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(79,142,247,0.1);
+  border: 1px solid rgba(79,142,247,0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.heroTitle { font-size: 38px; font-weight: 700; line-height: 1.2; letter-spacing: -1px; margin-bottom: 14px; }
+.heroGradient { background: linear-gradient(90deg, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.heroSub { font-size: 15px; color: var(--text2); max-width: 480px; margin: 0 auto 24px; line-height: 1.7; }
+
+.heroCTAs { display: flex; gap: 10px; justify-content: center; align-items: center; }
+.primaryBtn { padding: 11px 24px; background: var(--blue); color: #fff; border: none; border-radius: 9px; font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: var(--font); }
+.secondaryBtn { padding: 11px 20px; background: transparent; color: var(--text); border: 1px solid var(--border2); border-radius: 9px; font-size: 13px; cursor: pointer; font-family: var(--font); }
+.heroNote { font-size: 11px; color: var(--text3); margin-top: 12px; }
+
+/* Stats */
+.statsGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 32px; padding: 0 4px; }
+.statCard { text-align: center; padding: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; }
+.statValue { font-size: 24px; font-weight: 700; font-family: var(--mono); color: var(--blue); }
+.statLabel { font-size: 11px; color: var(--text2); margin-top: 4px; }
+
+/* Sections */
+.section { margin-bottom: 32px; }
+
+.sectionHeading { text-align: center; margin-bottom: 18px; }
+.sectionLabel { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.sectionBar { width: 30px; height: 2px; background: var(--blue); margin: 0 auto; border-radius: 2px; }
+
+/* How it works */
+.howGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.stepCard { padding: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; }
+.stepNum { font-family: var(--mono); font-size: 10px; color: var(--blue); font-weight: 600; margin-bottom: 8px; }
+.stepTitle { font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+.stepDesc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+/* Features */
+.featuresGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.featureCard { background: var(--bg2); border-radius: 10px; padding: 16px; }
+.featureIcon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 10px; }
+.featureTitle { font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+.featureDesc { font-size: 11px; color: var(--text2); line-height: 1.6; }
+
+/* Pricing */
+.billingToggleRow { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; align-items: center; }
+.billingLabel { font-size: 12px; }
+.billingLabelActive { color: var(--text); }
+.billingLabelInactive { color: var(--text3); }
+
+.toggleTrack { width: 40px; height: 22px; border-radius: 11px; background: var(--bg4); border: 1px solid var(--border2); cursor: pointer; position: relative; transition: background 0.2s; }
+.toggleTrackOn { background: var(--blue); }
+.toggleThumb { position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: left 0.2s; }
+.toggleThumbOn { left: 19px; }
+.savingLabel { color: var(--green); font-weight: 600; }
+
+.plansGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.planCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 18px; text-align: center; position: relative; }
+.planCardPopular { background: rgba(79,142,247,0.04); border-color: rgba(79,142,247,0.4); }
+
+.popularBadge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.planName { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.planPrice { font-size: 32px; font-weight: 700; font-family: var(--mono); margin-bottom: 4px; }
+.planPeriod { font-size: 11px; color: var(--text3); margin-bottom: 16px; }
+
+.planFeatures { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; text-align: left; }
+.planFeatureItem { display: flex; gap: 7px; font-size: 12px; color: var(--text2); }
+.planFeatureCheck { color: var(--green); flex-shrink: 0; }
+
+.planBtn { width: 100%; padding: 9px; border-radius: 7px; font-size: 12.5px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: all 0.15s; background: transparent; color: var(--text); border: 1px solid var(--border2); }
+.planBtnPopular { background: var(--blue); color: #fff; border: none; }

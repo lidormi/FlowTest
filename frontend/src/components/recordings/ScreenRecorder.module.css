@@ -1,0 +1,106 @@
+.page { display: flex; flex-direction: column; gap: 14px; }
+
+.recorderCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+
+.recorderHeader { display: flex; align-items: center; gap: 14px; }
+.recorderHeaderActive { margin-bottom: 14px; }
+
+.recorderMeta { flex: 1; }
+.recorderTitle { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.recorderStatus { font-size: 11.5px; color: var(--text2); }
+.statusRecording { color: var(--red); }
+.statusPaused { color: var(--amber); }
+.statusStopped { color: var(--green); }
+.statusError { color: var(--red); }
+
+.recorderBtns { display: flex; gap: 8px; align-items: center; }
+
+.recordBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.recordBtnDot { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+
+.pauseBtn { background: var(--amber); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.stopBtn { background: var(--bg3); color: var(--text); border: 1px solid var(--border2); border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.resumeBtn { background: var(--green); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+
+.previewWrap { position: relative; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.previewVideo { width: 100%; height: 200px; object-fit: contain; display: block; }
+
+.previewBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 20px;
+  padding: 4px 10px;
+}
+
+.recPulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.recPulseDotActive { animation: recPulse 1s infinite; }
+
+.previewTime { font-size: 11px; color: #fff; font-family: monospace; }
+
+/* Recordings list */
+.listCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+.listHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.listTitle { font-size: 13px; font-weight: 600; }
+.listCount { font-size: 11px; color: var(--text2); background: var(--bg3); padding: 2px 8px; border-radius: 8px; font-family: monospace; }
+
+.recItems { display: flex; flex-direction: column; gap: 6px; }
+
+.recItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.recItemSelected { background: rgba(79,142,247,0.07); border-color: rgba(79,142,247,0.3); }
+
+.recThumb { width: 36px; height: 28px; border-radius: 5px; background: var(--bg4); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.recInfo { flex: 1; min-width: 0; }
+.recName { font-size: 12.5px; font-weight: 500; }
+.recMeta { font-size: 10.5px; color: var(--text2); margin-top: 1px; }
+.testReadyBadge { font-size: 10px; color: var(--green); background: rgba(34,197,94,0.1); padding: 2px 8px; border-radius: 8px; font-weight: 600; flex-shrink: 0; }
+
+.recDetail { margin-top: 6px; display: flex; flex-direction: column; gap: 8px; }
+
+.videoPlayer { background: #000; border-radius: 9px; overflow: hidden; border: 1px solid var(--border); }
+.videoPlayerEl { width: 100%; height: 220px; display: block; object-fit: contain; }
+
+.codeBlock { background: var(--bg2); border: 1px solid var(--border); border-radius: 9px; overflow: hidden; }
+.codeHeader { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.codeTitle { font-size: 11.5px; font-weight: 600; color: var(--green); }
+.codeCopyBtn { font-size: 10px; padding: 3px 9px; background: var(--bg4); border: 1px solid var(--border2); border-radius: 6px; color: var(--text2); cursor: pointer; font-family: inherit; }
+.codePre { padding: 13px 15px; font-family: monospace; font-size: 11px; line-height: 1.65; color: #a8b4c8; overflow: auto; max-height: 260px; margin: 0; }
+
+.warning { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 9px; padding: 12px 16px; font-size: 12.5px; color: var(--amber); line-height: 1.6; }
+
+@keyframes recPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(239,68,68,.5); }
+  50% { opacity: .7; box-shadow: 0 0 0 5px rgba(239,68,68,0); }
+}
