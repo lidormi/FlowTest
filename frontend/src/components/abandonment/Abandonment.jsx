@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from './Abandonment.module.css';
 
 const REASONS = [
   {
@@ -136,43 +135,35 @@ export default function Abandonment() {
 
   return (
     <div>
-      <div className={styles.header}>
-        <h2 className={styles.headerTitle}>Abandonment Analysis</h2>
-        <p className={styles.headerSub}>Why users leave — and exactly how to fix each drop-off point</p>
+      {/* Header */}
+      <div style={{ marginBottom: 22 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 4px', letterSpacing: '-0.4px' }}>Abandonment Analysis</h2>
+        <p style={{ fontSize: 13, color: 'var(--text2)', margin: 0 }}>Why users leave — and exactly how to fix each drop-off point</p>
       </div>
 
       {/* KPI Cards */}
-      <div className={styles.kpiGrid}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 22 }}>
         {[
           { label: 'Overall Conversion', value: `${overallConv}%`, sub: 'product → paid', color: '#4f8ef7', icon: '📈' },
           { label: 'Sessions Lost', value: totalLost.toLocaleString(), sub: 'per month', color: '#ef4444', icon: '📉' },
           { label: 'Revenue Lost', value: '$82,400', sub: 'est. per month', color: '#f59e0b', icon: '💰' },
           { label: 'Recoverable (est.)', value: '+$29,700/mo', sub: 'with P0 fixes', color: '#22c55e', icon: '🚀' },
         ].map(c => (
-          <div key={c.label} className={styles.kpiCard}>
-            <div className={styles.kpiCardTop}>
-              <span className={styles.kpiLabel}>{c.label}</span>
-              <span className={styles.kpiIcon}>{c.icon}</span>
+          <div key={c.label} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, padding: '14px 16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+              <span style={{ fontSize: 11, color: 'var(--text2)', fontWeight: 500 }}>{c.label}</span>
+              <span style={{ fontSize: 16 }}>{c.icon}</span>
             </div>
             <div style={{ fontSize: 22, fontWeight: 800, color: c.color, letterSpacing: '-0.5px' }}>{c.value}</div>
-            <div className={styles.kpiSub}>{c.sub}</div>
+            <div style={{ fontSize: 11, color: 'var(--text3)', marginTop: 2 }}>{c.sub}</div>
           </div>
         ))}
       </div>
 
       {/* Tabs */}
-      <div className={styles.tabs}>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 18 }}>
         {[['reasons', 'Top Reasons'], ['funnel', 'Conversion Funnel'], ['device', 'By Device & Browser'], ['solutions', 'Action Plan']].map(([id, label]) => (
-          <button
-            key={id}
-            onClick={() => setTab(id)}
-            className={styles.tab}
-            style={{
-              border: tab === id ? '1px solid var(--blue)' : '1px solid var(--border)',
-              background: tab === id ? 'rgba(79,142,247,0.1)' : 'var(--bg2)',
-              color: tab === id ? 'var(--blue)' : 'var(--text2)',
-            }}
-          >
+          <button key={id} onClick={() => setTab(id)} style={{ padding: '7px 16px', borderRadius: 8, border: tab === id ? '1px solid var(--blue)' : '1px solid var(--border)', background: tab === id ? 'rgba(79,142,247,0.1)' : 'var(--bg2)', color: tab === id ? 'var(--blue)' : 'var(--text2)', fontSize: 12, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>
             {label}
           </button>
         ))}
@@ -180,43 +171,39 @@ export default function Abandonment() {
 
       {/* Tab: Top Reasons */}
       {tab === 'reasons' && (
-        <div className={styles.reasonsList}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {REASONS.map(r => (
-            <div
-              key={r.rank}
-              onClick={() => setActiveReason(activeReason === r.rank ? null : r.rank)}
-              className={styles.reasonCard}
-              style={{ border: `1px solid ${activeReason === r.rank ? r.color : 'var(--border)'}` }}
-            >
-              <div className={styles.reasonCardBody}>
-                <span className={styles.reasonIcon}>{r.icon}</span>
-                <div className={styles.reasonContent}>
-                  <div className={styles.reasonTitleRow}>
-                    <span className={styles.reasonTitle}>{r.title}</span>
-                    <span className={styles.reasonRank}>#{r.rank}</span>
+            <div key={r.rank} onClick={() => setActiveReason(activeReason === r.rank ? null : r.rank)}
+              style={{ background: 'var(--bg2)', border: `1px solid ${activeReason === r.rank ? r.color : 'var(--border)'}`, borderRadius: 12, padding: 16, cursor: 'pointer', transition: 'border-color .15s' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span style={{ fontSize: 20, flexShrink: 0 }}>{r.icon}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 5 }}>
+                    <span style={{ fontSize: 13.5, fontWeight: 700 }}>{r.title}</span>
+                    <span style={{ fontSize: 10, color: 'var(--text3)' }}>#{r.rank}</span>
                   </div>
-                  <div className={styles.barRow}>
-                    <div className={styles.barWrap}>
-                      <div className={styles.barFill} style={{ width: `${r.pct}%`, background: r.color }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ flex: 1, height: 6, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${r.pct}%`, background: r.color, borderRadius: 3, transition: 'width .4s ease' }} />
                     </div>
                     <span style={{ fontSize: 13, fontWeight: 700, color: r.color, minWidth: 36 }}>{r.pct}%</span>
                   </div>
                 </div>
-                <span className={`${styles.chevron} ${activeReason === r.rank ? styles.chevronOpen : ''}`}>▾</span>
+                <span style={{ fontSize: 12, color: 'var(--text3)', transform: activeReason === r.rank ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>▾</span>
               </div>
 
               {activeReason === r.rank && (
-                <div className={styles.reasonDetail}>
-                  <p className={styles.reasonDesc}>{r.desc}</p>
-                  <div className={styles.pageTagList}>
-                    {r.pages.map(p => <span key={p} className={styles.pageTag}>{p}</span>)}
+                <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--border)' }}>
+                  <p style={{ fontSize: 12.5, color: 'var(--text2)', lineHeight: 1.65, margin: '0 0 12px' }}>{r.desc}</p>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
+                    {r.pages.map(p => <span key={p} style={{ fontSize: 10.5, fontFamily: 'var(--mono)', color: 'var(--text2)', background: 'var(--bg3)', padding: '3px 8px', borderRadius: 5 }}>{p}</span>)}
                   </div>
-                  <div className={styles.fixesLabel}>Recommended Fixes</div>
-                  <div className={styles.fixesList}>
+                  <div style={{ fontWeight: 600, fontSize: 11.5, color: 'var(--text2)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.8px' }}>Recommended Fixes</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {r.solutions.map((s, i) => (
-                      <div key={i} className={styles.fixRow}>
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'var(--bg3)', borderRadius: 8, padding: '10px 12px' }}>
                         <span style={{ fontSize: 10, fontWeight: 700, color: PRIORITY_COLORS[s.priority], background: `${PRIORITY_COLORS[s.priority]}18`, padding: '2px 6px', borderRadius: 4, flexShrink: 0 }}>{s.priority}</span>
-                        <span className={styles.fixAction}>{s.action}</span>
+                        <span style={{ flex: 1, fontSize: 12.5 }}>{s.action}</span>
                         <span style={{ fontSize: 11, color: '#22c55e', fontWeight: 600, flexShrink: 0 }}>{s.impact}</span>
                         <span style={{ fontSize: 10, color: EFFORT_COLORS[s.effort], background: `${EFFORT_COLORS[s.effort]}15`, padding: '2px 7px', borderRadius: 4, flexShrink: 0 }}>{s.effort}</span>
                       </div>
@@ -231,18 +218,18 @@ export default function Abandonment() {
 
       {/* Tab: Funnel */}
       {tab === 'funnel' && (
-        <div className={styles.funnelCard}>
-          <h3 className={styles.funnelTitle}>Conversion Funnel — Last 30 Days</h3>
-          <div className={styles.funnelSteps}>
+        <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 14, padding: 24 }}>
+          <h3 style={{ margin: '0 0 20px', fontSize: 14, fontWeight: 700 }}>Conversion Funnel — Last 30 Days</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {FUNNEL.map((step, i) => (
               <div key={step.page}>
-                <div className={styles.funnelStepRow}>
-                  <span className={styles.funnelStepLabel}>{step.page}</span>
-                  <div className={styles.funnelBarWrap}>
-                    <div className={styles.funnelBarFill} style={{ width: `${step.pct}%`, background: step.color }}>
-                      {step.pct > 15 && <span className={styles.funnelBarLabel}>{step.sessions.toLocaleString()}</span>}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 }}>
+                  <span style={{ fontSize: 12, color: 'var(--text2)', width: 130, flexShrink: 0 }}>{step.page}</span>
+                  <div style={{ flex: 1, height: 32, background: 'var(--bg3)', borderRadius: 6, overflow: 'hidden', position: 'relative' }}>
+                    <div style={{ height: '100%', width: `${step.pct}%`, background: step.color, borderRadius: 6, display: 'flex', alignItems: 'center', paddingLeft: 10, transition: 'width .6s ease' }}>
+                      {step.pct > 15 && <span style={{ fontSize: 11, fontWeight: 700, color: '#fff' }}>{step.sessions.toLocaleString()}</span>}
                     </div>
-                    {step.pct <= 15 && <span className={styles.funnelBarLabelOut} style={{ left: `${step.pct + 1}%` }}>{step.sessions.toLocaleString()}</span>}
+                    {step.pct <= 15 && <span style={{ position: 'absolute', left: `${step.pct + 1}%`, top: '50%', transform: 'translateY(-50%)', fontSize: 11, fontWeight: 700, color: 'var(--text2)' }}>{step.sessions.toLocaleString()}</span>}
                   </div>
                   <span style={{ fontSize: 13, fontWeight: 700, minWidth: 40, textAlign: 'right', color: step.color }}>{step.pct}%</span>
                   {step.drop > 0 && <span style={{ fontSize: 11, color: '#ef4444', minWidth: 55, textAlign: 'right' }}>−{step.drop}% drop</span>}
@@ -251,9 +238,9 @@ export default function Abandonment() {
               </div>
             ))}
           </div>
-          <div className={styles.dropNote}>
-            <div className={styles.dropNoteTitle}>Biggest drop-off: Add to Cart → Cart Review (−26%)</div>
-            <div className={styles.dropNoteDesc}>
+          <div style={{ marginTop: 20, padding: '12px 16px', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 9 }}>
+            <div style={{ fontSize: 12.5, fontWeight: 600, color: '#ef4444', marginBottom: 4 }}>Biggest drop-off: Add to Cart → Cart Review (−26%)</div>
+            <div style={{ fontSize: 12, color: 'var(--text2)', lineHeight: 1.6 }}>
               26% of users who add items to cart never reach the cart review page. Root cause: cart drawer closes unexpectedly on mobile tap-outside. Fix: change dismissal to require an explicit "Close" button tap.
             </div>
           </div>
@@ -262,41 +249,41 @@ export default function Abandonment() {
 
       {/* Tab: Device & Browser */}
       {tab === 'device' && (
-        <div className={styles.deviceGrid}>
-          <div className={styles.deviceCard}>
-            <h3 className={styles.deviceCardTitle}>By Device</h3>
-            <div className={styles.deviceRows}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 14, padding: 20 }}>
+            <h3 style={{ margin: '0 0 16px', fontSize: 14, fontWeight: 700 }}>By Device</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {BY_DEVICE.map(d => (
-                <div key={d.device} className={styles.deviceRow}>
-                  <span className={styles.deviceLabel}>{d.device}</span>
-                  <div className={styles.deviceBarWrap}>
-                    <div className={styles.deviceBarFill} style={{ width: `${(d.sessions / 14200) * 100}%`, background: d.color }} />
+                <div key={d.device} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: 12, width: 70, color: 'var(--text2)' }}>{d.device}</span>
+                  <div style={{ flex: 1, height: 28, background: 'var(--bg3)', borderRadius: 6, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${(d.sessions / 14200) * 100}%`, background: d.color, borderRadius: 6 }} />
                   </div>
-                  <span className={styles.deviceCount}>{d.sessions.toLocaleString()}</span>
-                  <span className={styles.deviceConv} style={{ color: d.color }}>{d.conv}</span>
+                  <span style={{ fontSize: 11, fontWeight: 600, minWidth: 50, textAlign: 'right', color: 'var(--text2)' }}>{d.sessions.toLocaleString()}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: d.color, minWidth: 45, textAlign: 'right' }}>{d.conv}</span>
                 </div>
               ))}
             </div>
-            <div className={styles.deviceNote} style={{ background: 'rgba(239,68,68,0.07)' }}>
+            <div style={{ marginTop: 16, padding: '10px 12px', background: 'rgba(239,68,68,0.07)', borderRadius: 8, fontSize: 12, color: 'var(--text2)', lineHeight: 1.6 }}>
               <strong style={{ color: '#ef4444' }}>Mobile converts at 7.1%</strong> vs 14.2% desktop — 2× gap. Priority: mobile payment UX improvements.
             </div>
           </div>
 
-          <div className={styles.deviceCard}>
-            <h3 className={styles.deviceCardTitle}>By Browser</h3>
-            <div className={styles.deviceRows}>
+          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 14, padding: 20 }}>
+            <h3 style={{ margin: '0 0 16px', fontSize: 14, fontWeight: 700 }}>By Browser</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {BY_BROWSER.map(b => (
-                <div key={b.browser} className={styles.deviceRow}>
-                  <span className={styles.deviceLabel}>{b.browser}</span>
-                  <div className={styles.deviceBarWrap}>
-                    <div className={styles.deviceBarFill} style={{ width: `${b.pct}%`, background: '#4f8ef7', opacity: 0.6 + b.pct / 200 }} />
+                <div key={b.browser} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: 12, width: 70, color: 'var(--text2)' }}>{b.browser}</span>
+                  <div style={{ flex: 1, height: 28, background: 'var(--bg3)', borderRadius: 6, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${b.pct}%`, background: '#4f8ef7', borderRadius: 6, opacity: 0.6 + b.pct / 200 }} />
                   </div>
                   <span style={{ fontSize: 11, minWidth: 30, textAlign: 'right', color: 'var(--text3)' }}>{b.pct}%</span>
                   <span style={{ fontSize: 12, fontWeight: 700, color: '#4f8ef7', minWidth: 45, textAlign: 'right' }}>{b.conv}</span>
                 </div>
               ))}
             </div>
-            <div className={styles.deviceNote} style={{ background: 'rgba(245,158,11,0.07)' }}>
+            <div style={{ marginTop: 16, padding: '10px 12px', background: 'rgba(245,158,11,0.07)', borderRadius: 8, fontSize: 12, color: 'var(--text2)', lineHeight: 1.6 }}>
               <strong style={{ color: '#f59e0b' }}>Safari (28% of traffic)</strong> has 36% lower conversion than Firefox. Likely cause: iOS Safari keyboard overlap bug on payment form.
             </div>
           </div>
@@ -306,11 +293,11 @@ export default function Abandonment() {
       {/* Tab: Action Plan */}
       {tab === 'solutions' && (
         <div>
-          <div className={styles.priorityLegend}>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 18 }}>
             {[['P0', 'Critical — fix this week', '#ef4444'], ['P1', 'High — fix this sprint', '#f59e0b'], ['P2', 'Medium — backlog', '#22c55e']].map(([p, label, color]) => (
-              <div key={p} className={styles.priorityTag} style={{ background: `${color}12`, border: `1px solid ${color}25` }}>
+              <div key={p} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', background: `${color}12`, border: `1px solid ${color}25`, borderRadius: 8, fontSize: 12 }}>
                 <span style={{ fontWeight: 700, color }}>{p}</span>
-                <span className={styles.priorityTagLabel}>{label}</span>
+                <span style={{ color: 'var(--text2)' }}>{label}</span>
               </div>
             ))}
           </div>
@@ -319,22 +306,22 @@ export default function Abandonment() {
             const items = REASONS.flatMap(r => r.solutions.filter(s => s.priority === priority).map(s => ({ ...s, reason: r.title, icon: r.icon })));
             if (!items.length) return null;
             return (
-              <div key={priority} className={styles.priorityGroup}>
-                <div className={styles.priorityGroupTitle}>
+              <div key={priority} style={{ marginBottom: 22 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                   <span style={{ fontSize: 11, fontWeight: 700, color: PRIORITY_COLORS[priority], background: `${PRIORITY_COLORS[priority]}18`, padding: '3px 9px', borderRadius: 5 }}>{priority}</span>
-                  <span className={styles.priorityGroupLabel}>{priority === 'P0' ? 'Critical Actions' : priority === 'P1' ? 'High Priority' : 'Medium Priority'}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600 }}>{priority === 'P0' ? 'Critical Actions' : priority === 'P1' ? 'High Priority' : 'Medium Priority'}</span>
                 </div>
-                <div className={styles.actionItems}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {items.map((s, i) => (
-                    <div key={i} className={styles.actionItem}>
-                      <span className={styles.actionIcon}>{s.icon}</span>
-                      <div className={styles.actionContent}>
-                        <div className={styles.actionTitle}>{s.action}</div>
-                        <div className={styles.actionFrom}>From: {s.reason}</div>
+                    <div key={i} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 10, padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <span style={{ fontSize: 16, flexShrink: 0 }}>{s.icon}</span>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 2 }}>{s.action}</div>
+                        <div style={{ fontSize: 11, color: 'var(--text3)' }}>From: {s.reason}</div>
                       </div>
-                      <div className={styles.actionRight}>
-                        <div className={styles.actionImpact}>{s.impact}</div>
-                        <div className={styles.actionEffort} style={{ color: EFFORT_COLORS[s.effort] }}>{s.effort} effort</div>
+                      <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: '#22c55e' }}>{s.impact}</div>
+                        <div style={{ fontSize: 10, color: EFFORT_COLORS[s.effort], marginTop: 2 }}>{s.effort} effort</div>
                       </div>
                     </div>
                   ))}
@@ -343,9 +330,9 @@ export default function Abandonment() {
             );
           })}
 
-          <div className={styles.totalImpactBox}>
-            <div className={styles.totalImpactTitle}>Estimated total impact if all P0 + P1 fixes ship</div>
-            <div className={styles.totalImpactDesc}>
+          <div style={{ background: 'rgba(79,142,247,0.06)', border: '1px solid rgba(79,142,247,0.15)', borderRadius: 12, padding: '16px 18px', marginTop: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--blue)', marginBottom: 6 }}>Estimated total impact if all P0 + P1 fixes ship</div>
+            <div style={{ fontSize: 12.5, color: 'var(--text2)', lineHeight: 1.7 }}>
               Conversion rate: <strong>10.4% → 16–18%</strong> &nbsp;·&nbsp; Revenue recovered: <strong>+$29,700/mo</strong> &nbsp;·&nbsp; Payback period: <strong>&lt; 2 sprints</strong>
             </div>
           </div>

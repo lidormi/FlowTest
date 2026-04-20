@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApi, runTest, getTestStatus } from '../../hooks/useApi.js';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
-import styles from './TestDetail.module.css';
 
 export default function TestDetail({ testId, onBack }) {
   const { data, loading, refetch } = useApi(`/tests/${testId}`, [testId]);
@@ -29,8 +28,8 @@ export default function TestDetail({ testId, onBack }) {
   }
 
   if (loading || !data) return (
-    <div className={styles.loading}>
-      <div className={styles.loadingText}>Loading test...</div>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 60 }}>
+      <div style={{ fontSize: 13, color: 'var(--text2)' }}>Loading test...</div>
     </div>
   );
 
@@ -51,19 +50,23 @@ export default function TestDetail({ testId, onBack }) {
   const currentStatus = running ? 'running' : data.status;
 
   return (
-    <div className={`${styles.page} fade-in`}>
+    <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       {/* Header */}
-      <div className={styles.header}>
-        <button onClick={onBack} className={styles.backBtn}>←</button>
-        <div className={styles.headerMeta}>
-          <div className={styles.headerTitleRow}>
-            <div className={styles.statusDot} style={{ background: statusColors[currentStatus], boxShadow: running ? '0 0 8px var(--amber)' : '' }} />
-            <h2 className={styles.testTitle}>{data.name}</h2>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <button onClick={onBack} style={{ background: 'none', border: 'none', color: 'var(--text2)', cursor: 'pointer', fontSize: 18, padding: '2px 4px', borderRadius: 5, transition: 'color 0.12s' }}
+          onMouseEnter={e => e.target.style.color = 'var(--text)'}
+          onMouseLeave={e => e.target.style.color = 'var(--text2)'}>
+          ←
+        </button>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: statusColors[currentStatus], flexShrink: 0, boxShadow: running ? '0 0 8px var(--amber)' : '' }} />
+            <h2 style={{ fontSize: 18, fontWeight: 700, margin: 0, letterSpacing: '-0.3px' }}>{data.name}</h2>
             <span className={`badge badge-${currentStatus}`}>{running ? 'Running...' : currentStatus}</span>
           </div>
-          <div className={styles.testDesc}>{data.description}</div>
+          <div style={{ fontSize: 12, color: 'var(--text2)', marginTop: 3 }}>{data.description}</div>
         </div>
-        <div className={styles.headerActions}>
+        <div style={{ display: 'flex', gap: 8 }}>
           <button onClick={copyCode} className="btn btn-ghost" style={{ fontSize: 12 }}>{copied ? '✓ Copied' : '⧉ Copy Code'}</button>
           <button onClick={handleRun} disabled={running} className="btn btn-primary" style={{ fontSize: 12 }}>
             {running ? '⟳ Running...' : '▶ Run Test'}
@@ -72,7 +75,7 @@ export default function TestDetail({ testId, onBack }) {
       </div>
 
       {/* Stats */}
-      <div className={styles.statGrid}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
         {[
           { label: 'Total Runs', value: runs.length, color: 'var(--blue)' },
           { label: 'Passed', value: passCount, color: 'var(--green)' },
@@ -80,21 +83,22 @@ export default function TestDetail({ testId, onBack }) {
           { label: 'Pass Rate', value: `${passRate}%`, color: passRate >= 80 ? 'var(--green)' : passRate >= 50 ? 'var(--amber)' : 'var(--red)' },
           { label: 'Avg Duration', value: avgDuration ? `${(avgDuration / 1000).toFixed(1)}s` : '—', color: 'var(--text)' },
         ].map(s => (
-          <div key={s.label} className={styles.statCard}>
-            <div className={styles.statLabel}>{s.label}</div>
-            <div className={styles.statValue} style={{ color: s.color }}>{s.value}</div>
+          <div key={s.label} style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 10, padding: '12px 14px' }}>
+            <div style={{ fontSize: 10, color: 'var(--text2)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>{s.label}</div>
+            <div style={{ fontSize: 22, fontWeight: 700, fontFamily: 'monospace', color: s.color }}>{s.value}</div>
           </div>
         ))}
       </div>
 
-      <div className={styles.mainLayout}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 14 }}>
         {/* Left: chart + code */}
-        <div className={styles.leftCol}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Run history chart */}
           {chartData.length > 1 && (
             <div className="card">
               <div className="card-header">
                 <span className="card-title">Duration trend</span>
-                <span className={styles.chartNote}>last {chartData.length} runs</span>
+                <span style={{ fontSize: 10, color: 'var(--text3)' }}>last {chartData.length} runs</span>
               </div>
               <ResponsiveContainer width="100%" height={100}>
                 <LineChart data={chartData}>
@@ -112,15 +116,16 @@ export default function TestDetail({ testId, onBack }) {
             </div>
           )}
 
+          {/* Code */}
           <div className="card" style={{ flex: 1 }}>
             <div className="card-header">
               <span className="card-title">Playwright code</span>
-              <div className={styles.codeActions}>
-                <span className={styles.typeBadge}>TypeScript</span>
-                <a href={`data:text/plain,${encodeURIComponent(data.playwright_code || '')}`} download={`${data.name.replace(/\s+/g, '-').toLowerCase()}.spec.ts`} className={styles.downloadLink}>⬇ Download</a>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                <span style={{ fontSize: 10, color: 'var(--blue)', background: 'var(--blue-dim)', padding: '1px 7px', borderRadius: 4, fontFamily: 'monospace' }}>TypeScript</span>
+                <a href={`data:text/plain,${encodeURIComponent(data.playwright_code || '')}`} download={`${data.name.replace(/\s+/g, '-').toLowerCase()}.spec.ts`} style={{ fontSize: 10, color: 'var(--text2)', textDecoration: 'none', padding: '2px 7px', background: 'var(--bg3)', borderRadius: 5, border: '1px solid var(--border)' }}>⬇ Download</a>
               </div>
             </div>
-            <pre className={styles.codePre}>
+            <pre style={{ background: '#0d0f14', border: '1px solid var(--border)', borderRadius: 8, padding: '14px 16px', fontFamily: 'monospace', fontSize: 11.5, lineHeight: 1.7, color: '#a8b4c8', overflow: 'auto', margin: 0, maxHeight: 340 }}>
               <code dangerouslySetInnerHTML={{ __html: highlight(data.playwright_code || '') }} />
             </pre>
           </div>
@@ -130,14 +135,14 @@ export default function TestDetail({ testId, onBack }) {
         <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
           <div className="card-header">
             <span className="card-title">Run history</span>
-            <span className={styles.runListNote}>{runs.length} runs</span>
+            <span style={{ fontSize: 10, color: 'var(--text2)', fontFamily: 'monospace' }}>{runs.length} runs</span>
           </div>
-          <div className={styles.runList}>
+          <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 5 }}>
             {runs.length === 0 && (
-              <div className={styles.noRuns}>No runs yet — click Run Test</div>
+              <div style={{ textAlign: 'center', padding: '24px', color: 'var(--text3)', fontSize: 12 }}>No runs yet — click Run Test</div>
             )}
             {runs.map((r, i) => (
-              <RunRow key={r.id || i} run={r} index={i} totalRuns={runs.length} />
+              <RunRow key={r.id || i} run={r} index={i} />
             ))}
           </div>
         </div>
@@ -146,7 +151,7 @@ export default function TestDetail({ testId, onBack }) {
   );
 }
 
-function RunRow({ run, index, totalRuns }) {
+function RunRow({ run, index }) {
   const [open, setOpen] = useState(false);
   const timeAgo = ts => {
     if (!ts) return '—';
@@ -159,34 +164,34 @@ function RunRow({ run, index, totalRuns }) {
 
   return (
     <div>
-      <div
-        onClick={() => setOpen(o => !o)}
-        className={styles.runRow}
-        style={{
-          background: open ? 'var(--bg4)' : 'var(--bg3)',
-          border: `1px solid ${run.status === 'fail' ? 'rgba(239,68,68,0.15)' : 'var(--border)'}`,
-        }}
-      >
-        <div className={`${styles.runDot} ${run.status === 'pass' ? styles.runDotPass : styles.runDotFail}`}>
+      <div onClick={() => setOpen(o => !o)} style={{
+        display: 'flex', alignItems: 'center', gap: 9, padding: '8px 10px',
+        background: open ? 'var(--bg4)' : 'var(--bg3)',
+        border: `1px solid ${run.status === 'fail' ? 'rgba(239,68,68,0.15)' : 'var(--border)'}`,
+        borderRadius: 7, cursor: 'pointer', transition: 'all 0.12s',
+      }}>
+        <div style={{ width: 18, height: 18, borderRadius: '50%', background: run.status === 'pass' ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, color: run.status === 'pass' ? 'var(--green)' : 'var(--red)', fontWeight: 700, flexShrink: 0 }}>
           {run.status === 'pass' ? '✓' : '✕'}
         </div>
-        <div className={styles.runInfo}>
-          <div className={styles.runTitleRow}>
-            <span className={styles.runTitle}>Run #{totalRuns - index}</span>
-            <span className={styles.runTime}>{timeAgo(run.ran_at)}</span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 11.5, fontWeight: 500 }}>Run #{(runs?.length || 0) - index}</span>
+            <span style={{ fontSize: 10, color: 'var(--text3)' }}>{timeAgo(run.ran_at)}</span>
           </div>
-          <div className={styles.runMeta}>
+          <div style={{ fontSize: 10, color: 'var(--text2)', marginTop: 1 }}>
             {run.steps_passed}/{run.steps_total} steps · {run.duration ? `${(run.duration / 1000).toFixed(1)}s` : '—'}
           </div>
         </div>
         <span className={`badge badge-${run.status}`}>{run.status}</span>
-        <span className={styles.runChevron}>{open ? '▲' : '▼'}</span>
+        <span style={{ fontSize: 10, color: 'var(--text3)' }}>{open ? '▲' : '▼'}</span>
       </div>
       {open && run.error && (
-        <div className={styles.runErrorPanel}>{run.error}</div>
+        <div style={{ margin: '3px 0 3px 6px', padding: '9px 12px', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 7, fontSize: 11, fontFamily: 'monospace', color: '#ef4444', lineHeight: 1.6 }}>
+          {run.error}
+        </div>
       )}
       {open && !run.error && (
-        <div className={styles.runPassPanel}>
+        <div style={{ margin: '3px 0 3px 6px', padding: '9px 12px', background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.12)', borderRadius: 7, fontSize: 11, color: 'var(--green)' }}>
           All {run.steps_total} steps completed successfully in {(run.duration / 1000).toFixed(2)}s
         </div>
       )}

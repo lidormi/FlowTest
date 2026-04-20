@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
-import styles from './Scheduler.module.css';
 
 const API = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
 
@@ -39,34 +38,34 @@ export default function Scheduler() {
   }
 
   return (
-    <div className={`${styles.page} fade-in`}>
+    <div className="fade-in" style={{ maxWidth: 740, display: 'flex', flexDirection: 'column', gap: 14 }}>
 
       {/* Add schedule */}
-      <div className={styles.section}>
-        <div className={styles.sectionTitle}>Add Schedule</div>
+      <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: 16 }}>
+        <div style={{ fontSize: 13.5, fontWeight: 600, marginBottom: 12 }}>Add Schedule</div>
         <form onSubmit={handleAdd} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div className={styles.formGrid}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             <div>
-              <label className={styles.formLabel}>Test</label>
-              <select value={form.testId} onChange={e => setForm(p => ({ ...p, testId: e.target.value }))} required className={styles.formSelect}>
+              <label style={{ fontSize: 11, color: 'var(--text2)', display: 'block', marginBottom: 5 }}>Test</label>
+              <select value={form.testId} onChange={e => setForm(p => ({ ...p, testId: e.target.value }))} required style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border2)', color: 'var(--text)', borderRadius: 7, padding: '8px 10px', fontSize: 12, cursor: 'pointer', outline: 'none', fontFamily: 'var(--font)' }}>
                 <option value="">— Select test —</option>
                 {tests.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
               </select>
             </div>
             <div>
-              <label className={styles.formLabel}>Schedule</label>
-              <select value={form.cronExpr} onChange={e => setForm(p => ({ ...p, cronExpr: e.target.value }))} required className={styles.formSelect}>
+              <label style={{ fontSize: 11, color: 'var(--text2)', display: 'block', marginBottom: 5 }}>Schedule</label>
+              <select value={form.cronExpr} onChange={e => setForm(p => ({ ...p, cronExpr: e.target.value }))} required style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border2)', color: 'var(--text)', borderRadius: 7, padding: '8px 10px', fontSize: 12, cursor: 'pointer', outline: 'none', fontFamily: 'var(--font)' }}>
                 <option value="">— Select frequency —</option>
                 {presets.map(p => <option key={p.expr} value={p.expr}>{p.label}</option>)}
               </select>
             </div>
           </div>
           {form.cronExpr && (
-            <div className={styles.cronPreview}>
-              cron: <span className={styles.cronPreviewVal}>{form.cronExpr}</span>
+            <div style={{ fontSize: 11, color: 'var(--text2)', fontFamily: 'var(--mono)', background: 'var(--bg3)', padding: '6px 10px', borderRadius: 6 }}>
+              cron: <span style={{ color: 'var(--blue)' }}>{form.cronExpr}</span>
             </div>
           )}
-          {msg && <div className={msg.startsWith('✓') ? styles.msgSuccess : styles.msgError}>{msg}</div>}
+          {msg && <div style={{ fontSize: 12, color: msg.startsWith('✓') ? 'var(--green)' : 'var(--red)' }}>{msg}</div>}
           <div style={{ display: 'flex', gap: 8 }}>
             <button type="submit" disabled={saving} className="btn btn-primary">{saving ? 'Saving...' : '+ Add Schedule'}</button>
           </div>
@@ -74,28 +73,28 @@ export default function Scheduler() {
       </div>
 
       {/* Active schedules */}
-      <div className={styles.section}>
-        <div className={styles.sectionTitle}>Active Schedules</div>
-        {loading ? <div className={styles.skeleton} /> : (
+      <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: 16 }}>
+        <div style={{ fontSize: 13.5, fontWeight: 600, marginBottom: 12 }}>Active Schedules</div>
+        {loading ? <div style={{ height: 60, background: 'var(--bg3)', borderRadius: 7 }} /> : (
           <>
             {schedules.length === 0 ? (
-              <div className={styles.emptyState}>
-                <div className={styles.emptyIcon}>📅</div>
+              <div style={{ textAlign: 'center', padding: '24px 0', color: 'var(--text3)', fontSize: 12 }}>
+                <div style={{ fontSize: 22, marginBottom: 6 }}>📅</div>
                 No schedules yet — add one above
               </div>
             ) : (
-              <div className={styles.scheduleList}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {schedules.map(s => {
                   const test = tests.find(t => t.id === s.test_id);
                   return (
-                    <div key={s.id} className={styles.scheduleRow}>
-                      <div className={styles.liveDot} />
-                      <div className={styles.scheduleInfo}>
-                        <div className={styles.scheduleName}>{test?.name || s.test_id}</div>
-                        <div className={styles.scheduleMeta}>
-                          <span className={styles.scheduleExpr}>{s.cron_expr}</span>
+                    <div key={s.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8 }}>
+                      <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--green)', boxShadow: '0 0 6px var(--green)', flexShrink: 0 }} />
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 12.5, fontWeight: 500 }}>{test?.name || s.test_id}</div>
+                        <div style={{ fontSize: 11, color: 'var(--text2)', marginTop: 1 }}>
+                          <span style={{ fontFamily: 'var(--mono)', color: 'var(--blue)' }}>{s.cron_expr}</span>
                           {' · '}{s.label}
-                          {s.last_triggered && <span className={styles.scheduleTime}> · Last ran {new Date(s.last_triggered * 1000).toLocaleTimeString()}</span>}
+                          {s.last_triggered && <span style={{ color: 'var(--text3)' }}> · Last ran {new Date(s.last_triggered * 1000).toLocaleTimeString()}</span>}
                         </div>
                       </div>
                       <span className={`badge badge-${test?.status || 'idle'}`}>{test?.status || 'idle'}</span>
@@ -110,13 +109,15 @@ export default function Scheduler() {
       </div>
 
       {/* Cron reference */}
-      <div className={styles.section}>
-        <div className={styles.sectionTitle}>Cron Reference</div>
-        <div className={styles.presetGrid}>
+      <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: 16 }}>
+        <div style={{ fontSize: 13.5, fontWeight: 600, marginBottom: 10 }}>Cron Reference</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
           {presets.map(p => (
-            <div key={p.expr} onClick={() => setForm(f => ({ ...f, cronExpr: p.expr }))} className={styles.presetItem}>
-              <span className={styles.presetLabel}>{p.label}</span>
-              <code className={styles.presetExpr}>{p.expr}</code>
+            <div key={p.expr} onClick={() => setForm(f => ({ ...f, cronExpr: p.expr }))} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 10px', background: 'var(--bg3)', borderRadius: 7, cursor: 'pointer', transition: 'background 0.12s' }}
+              onMouseEnter={e => e.currentTarget.style.background = 'var(--bg4)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--bg3)'}>
+              <span style={{ fontSize: 11, color: 'var(--text2)' }}>{p.label}</span>
+              <code style={{ fontSize: 10, fontFamily: 'var(--mono)', color: 'var(--blue)' }}>{p.expr}</code>
             </div>
           ))}
         </div>

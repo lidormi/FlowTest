@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, createContext, useContext } from 'react';
-import styles from './Auth.module.css';
 
 const AuthContext = createContext(null);
 
@@ -62,9 +61,6 @@ const BRAND = {
 
 const API = (import.meta.env.VITE_API_URL || 'https://flowtest-production.up.railway.app') + '/api';
 
-const AVATAR_COLORS = ['#4f8ef7', '#8b5cf6', '#22c55e', '#f59e0b', '#ef4444'];
-const AVATAR_INITIALS = ['YN', 'DL', 'RM', 'SB', 'AK'];
-
 export function LoginPage({ onLogin }) {
   const [mode, setMode] = useState('login');
   const [form, setForm] = useState({ email: '', password: '', name: '' });
@@ -97,6 +93,7 @@ export function LoginPage({ onLogin }) {
     function tick() {
       const W = canvas.width, H = canvas.height;
       ctx.clearRect(0, 0, W, H);
+      const t = Date.now() / 1000;
       const nodes = nodesRef.current;
 
       for (let i = 0; i < nodes.length; i++) {
@@ -165,114 +162,138 @@ export function LoginPage({ onLogin }) {
   }
 
   return (
-    <div className={styles.page}>
+    <div style={{
+      minHeight: '100vh', display: 'flex',
+      background: '#06080f',
+      fontFamily: "'DM Sans', 'Helvetica Neue', system-ui, sans-serif",
+    }}>
       {/* LEFT HERO */}
-      <div className={styles.leftPanel}>
-        <canvas ref={canvasRef} className={styles.canvas} />
-        <div className={styles.gridBg} />
-        <div className={styles.orb1} />
-        <div className={styles.orb2} />
+      <div style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '64px 72px', overflow: 'hidden', minWidth: 0 }}>
+        <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '10%', left: '5%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(79,142,247,0.1) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: 300, height: 300, background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none' }} />
 
-        <div className={styles.heroContent}>
+        <div style={{ position: 'relative', zIndex: 1, animation: 'heroIn 0.8s ease forwards' }}>
           {/* Logo */}
-          <div className={styles.logoRow}>
-            <div className={styles.logoMark}>{BRAND.initials}</div>
-            <span className={styles.logoName}>{BRAND.name}</span>
-            <span className={styles.logoVersion}>v1.1</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 52 }}>
+            <div style={{ width: 42, height: 42, borderRadius: 11, background: 'linear-gradient(135deg, #4f8ef7 0%, #8b5cf6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, fontWeight: 800, color: '#fff', fontFamily: 'monospace', boxShadow: '0 0 20px rgba(79,142,247,0.3)' }}>
+              {BRAND.initials}
+            </div>
+            <span style={{ fontSize: 20, fontWeight: 700, color: '#e8eaf0', letterSpacing: '-0.4px' }}>{BRAND.name}</span>
+            <span style={{ fontSize: 10, color: '#4f8ef7', background: 'rgba(79,142,247,0.12)', padding: '2px 8px', borderRadius: 4, fontFamily: 'monospace', marginLeft: 2 }}>v1.1</span>
           </div>
 
-          <h1 className={styles.heroTitle}>
+          <h1 style={{ fontSize: 58, fontWeight: 800, lineHeight: 1.08, letterSpacing: '-2px', color: '#fff', margin: '0 0 22px', maxWidth: 560 }}>
             {BRAND.tagline.split(' ').slice(0, -1).join(' ')}{' '}
-            <span className={styles.heroGradient}>
+            <span style={{ background: 'linear-gradient(90deg, #4f8ef7, #8b5cf6 50%, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               {BRAND.tagline.split(' ').slice(-1)[0]}
             </span>
           </h1>
 
-          <p className={styles.heroSub}>{BRAND.sub}</p>
+          <p style={{ fontSize: 16.5, color: '#6b7a94', lineHeight: 1.65, maxWidth: 500, margin: '0 0 42px' }}>
+            {BRAND.sub}
+          </p>
 
-          <div className={styles.featureList}>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 52 }}>
             {BRAND.features.map((f, i) => (
-              <div key={f} className={styles.featureChip} style={{ animation: `fadeUp 0.5s ease ${0.1 + i * 0.07}s both` }}>{f}</div>
+              <div key={f} style={{ fontSize: 12.5, color: '#8892a4', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 20, padding: '6px 14px', animation: `fadeUp 0.5s ease ${0.1 + i * 0.07}s both` }}>{f}</div>
             ))}
           </div>
 
           {/* Social proof */}
-          <div className={styles.socialProof}>
-            <div className={styles.avatarStack}>
-              {AVATAR_COLORS.map((c, i) => (
-                <div key={i} className={styles.avatar} style={{ background: c, marginLeft: i > 0 ? -10 : 0, zIndex: 5 - i }}>
-                  {AVATAR_INITIALS[i]}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <div style={{ display: 'flex' }}>
+              {['#4f8ef7', '#8b5cf6', '#22c55e', '#f59e0b', '#ef4444'].map((c, i) => (
+                <div key={i} style={{ width: 32, height: 32, borderRadius: '50%', background: c, border: '2px solid #06080f', marginLeft: i > 0 ? -10 : 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', zIndex: 5 - i }}>
+                  {['YN', 'DL', 'RM', 'SB', 'AK'][i]}
                 </div>
               ))}
             </div>
             <div>
-              <div className={styles.socialTitle}>4,200+ engineering teams</div>
-              <div className={styles.socialSub}>trust {BRAND.name} in production · ★★★★★</div>
+              <div style={{ fontSize: 13.5, color: '#e8eaf0', fontWeight: 600 }}>4,200+ engineering teams</div>
+              <div style={{ fontSize: 11.5, color: '#4a5568' }}>trust {BRAND.name} in production · ★★★★★</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* RIGHT FORM */}
-      <div className={styles.rightPanel}>
-        <div className={styles.formWrap}>
-          <div className={styles.formHeader}>
-            <h2 className={styles.formTitle}>
+      <div style={{ width: 440, flexShrink: 0, background: 'rgba(11,13,20,0.97)', borderLeft: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px 44px' }}>
+        <div style={{ width: '100%' }}>
+          <div style={{ marginBottom: 30 }}>
+            <h2 style={{ fontSize: 24, fontWeight: 700, color: '#e8eaf0', letterSpacing: '-0.4px', margin: '0 0 8px' }}>
               {mode === 'login' ? 'Welcome back' : 'Get started free'}
             </h2>
-            <p className={styles.formSub}>
+            <p style={{ fontSize: 13.5, color: '#4a5568', margin: 0 }}>
               {mode === 'login' ? `Sign in to your ${BRAND.name} workspace` : '14-day trial · No credit card required'}
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.formFields}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
             {mode === 'register' && (
               <FormField label="Full name" type="text" value={form.name} onChange={v => setForm(p => ({ ...p, name: v }))} placeholder="Yoni Natan" />
             )}
             <FormField label="Email address" type="email" value={form.email} onChange={v => setForm(p => ({ ...p, email: v }))} placeholder="you@company.io" />
             <FormField label="Password" type="password" value={form.password} onChange={v => setForm(p => ({ ...p, password: v }))} placeholder="••••••••" />
 
-            {error && <div className={styles.errorBox}>{error}</div>}
+            {error && (
+              <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.18)', borderRadius: 8, padding: '10px 13px', fontSize: 12.5, color: '#ef4444', lineHeight: 1.5 }}>
+                {error}
+              </div>
+            )}
 
-            <button type="submit" disabled={loading} className={styles.submitBtn}>
+            <button type="submit" disabled={loading} style={{ background: 'linear-gradient(135deg, #4f8ef7, #6366f1)', color: '#fff', border: 'none', borderRadius: 9, padding: '12px', fontSize: 14, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit', opacity: loading ? 0.75 : 1, marginTop: 4, letterSpacing: '-0.2px', boxShadow: loading ? 'none' : '0 0 20px rgba(79,142,247,0.25)' }}>
               {loading ? '...' : mode === 'login' ? `Sign in to ${BRAND.name} →` : 'Create free account →'}
             </button>
           </form>
 
-          <div className={styles.divider}>
-            <div className={styles.dividerLine} />
-            <span className={styles.dividerText}>or try instantly</span>
-            <div className={styles.dividerLine} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '20px 0' }}>
+            <div style={{ flex: 1, height: '0.5px', background: 'rgba(255,255,255,0.07)' }} />
+            <span style={{ fontSize: 11, color: '#4a5568', flexShrink: 0 }}>or try instantly</span>
+            <div style={{ flex: 1, height: '0.5px', background: 'rgba(255,255,255,0.07)' }} />
           </div>
 
-          <button onClick={handleDemo} disabled={loading} className={styles.demoBtn}>
+          <button onClick={handleDemo} disabled={loading} style={{ width: '100%', background: 'rgba(255,255,255,0.04)', color: '#8892a4', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 9, padding: '11px', fontSize: 13.5, fontWeight: 500, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit', transition: 'all 0.15s' }}
+            onMouseEnter={e => { e.target.style.background = 'rgba(255,255,255,0.08)'; e.target.style.color = '#e8eaf0'; }}
+            onMouseLeave={e => { e.target.style.background = 'rgba(255,255,255,0.04)'; e.target.style.color = '#8892a4'; }}>
             ⚡ Demo account — see everything live
           </button>
 
-          <p className={styles.formFooter}>
+          <p style={{ textAlign: 'center', marginTop: 22, fontSize: 12.5, color: '#4a5568' }}>
             {mode === 'login'
-              ? <><span>No account? </span><span onClick={() => { setMode('register'); setError(''); }} className={styles.formFooterLink}>Start free trial</span></>
-              : <><span>Have an account? </span><span onClick={() => { setMode('login'); setError(''); }} className={styles.formFooterLink}>Sign in</span></>
+              ? <><span>No account? </span><span onClick={() => { setMode('register'); setError(''); }} style={{ color: '#4f8ef7', cursor: 'pointer', fontWeight: 500 }}>Start free trial</span></>
+              : <><span>Have an account? </span><span onClick={() => { setMode('login'); setError(''); }} style={{ color: '#4f8ef7', cursor: 'pointer', fontWeight: 500 }}>Sign in</span></>
             }
           </p>
-          <p className={styles.hint}>demo@flowtest.io / demo123</p>
+          <p style={{ textAlign: 'center', fontSize: 11, color: '#2a3044', marginTop: 6 }}>demo@flowtest.io / demo123</p>
         </div>
       </div>
+
+      <style>{`
+        @keyframes heroIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+      `}</style>
     </div>
   );
 }
 
 function FormField({ label, type, value, onChange, placeholder }) {
+  const [focused, setFocused] = useState(false);
   return (
     <div>
-      <label className={styles.fieldLabel}>{label}</label>
+      <label style={{ fontSize: 12, color: '#6b7a94', display: 'block', marginBottom: 6, fontWeight: 500, letterSpacing: '0.2px' }}>{label}</label>
       <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        required
+        type={type} value={value} placeholder={placeholder} required
         onChange={e => onChange(e.target.value)}
-        className={styles.fieldInput}
+        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
+        style={{
+          width: '100%', background: focused ? 'rgba(79,142,247,0.07)' : 'rgba(255,255,255,0.03)',
+          border: `1px solid ${focused ? 'rgba(79,142,247,0.45)' : 'rgba(255,255,255,0.07)'}`,
+          borderRadius: 8, padding: '10px 13px', color: '#e8eaf0', fontSize: 13.5,
+          outline: 'none', fontFamily: 'inherit', transition: 'all 0.15s',
+          boxShadow: focused ? '0 0 0 3px rgba(79,142,247,0.1)' : 'none',
+        }}
       />
     </div>
   );
